@@ -1,1 +1,1 @@
-git log --all --no-merges --pretty=format:'%H %s' > gitlog.json
+git log --all --no-merges --pretty=format:'%H %h %T %t %P %p %an %ae %ad %aD %ar %at %ai %cn %ce %cd %cr %s' > gitlog.json
