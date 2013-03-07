@@ -1,1 +1,1 @@
-git log --all --no-merges > gitlog.json
+git log --all --no-merges --pretty=oneline > gitlog.json
