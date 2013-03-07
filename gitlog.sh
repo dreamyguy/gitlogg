@@ -1,1 +1,1 @@
-git log --all --no-merges --pretty=oneline > gitlog.json
+git log --all --no-merges --pretty=format:'%H %s' > gitlog.json
