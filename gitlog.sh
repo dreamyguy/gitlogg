@@ -1,1 +1,1 @@
-git log > gitlog.json
+git log --all > gitlog.json
