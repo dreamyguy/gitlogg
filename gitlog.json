@@ -1,259 +1,41 @@
-commit_hash 41b45e5ee16b197ee854821a162ebcdcbb5cb9ba
- commit_hash_abbreviated 41b45e5
- tree_hash 93df03b8df5c8719ada331d6ec721ec651304d1a
- tree_hash_abbreviated 93df03b
- parent_hashes a14117a87c307c1767b0fab4f4786885ca1bec28
- parent_hashes_abbreviated a14117a
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Sat Mar 9 18:41:31 2013 +0100
- author_date_rfc2822_style Sat, 9 Mar 2013 18:41:31 +0100
- author_date_relative 3 minutes ago
- author_date_unix_timestamp 1362850891
- author_date_iso_8601 2013-03-09 18:41:31 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Sat Mar 9 18:41:31 2013 +0100
- committer_date_relative 3 minutes ago
- subject Introduce '--shortstat' to the git log command
+commit_hash 28a6f0939b5465b34c462991e4019324e396fb01 commit_hash_abbreviated 28a6f09 tree_hash e9eead56f2d0162cfee4c42603566b2e825d2d0b tree_hash_abbreviated e9eead5 parent_hashes 41b45e5ee16b197ee854821a162ebcdcbb5cb9ba parent_hashes_abbreviated 41b45e5 author_name dreamyguy author_email i@dreamyguy.com author_date Sat Mar 9 18:46:28 2013 +0100 author_date_rfc2822_style Sat, 9 Mar 2013 18:46:28 +0100 author_date_relative 69 minutes ago author_date_unix_timestamp 1362851188 author_date_iso_8601 2013-03-09 18:46:28 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Sat Mar 9 18:46:28 2013 +0100 committer_date_relative 69 minutes ago subject Remove JSON formatting from git log's formatting
+ 2 files changed, 237 insertions(+), 241 deletions(-)
+
+commit_hash 41b45e5ee16b197ee854821a162ebcdcbb5cb9ba commit_hash_abbreviated 41b45e5 tree_hash 93df03b8df5c8719ada331d6ec721ec651304d1a tree_hash_abbreviated 93df03b parent_hashes a14117a87c307c1767b0fab4f4786885ca1bec28 parent_hashes_abbreviated a14117a author_name dreamyguy author_email i@dreamyguy.com author_date Sat Mar 9 18:41:31 2013 +0100 author_date_rfc2822_style Sat, 9 Mar 2013 18:41:31 +0100 author_date_relative 74 minutes ago author_date_unix_timestamp 1362850891 author_date_iso_8601 2013-03-09 18:41:31 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Sat Mar 9 18:41:31 2013 +0100 committer_date_relative 74 minutes ago subject Introduce '--shortstat' to the git log command
  2 files changed, 47 insertions(+), 4 deletions(-)
 
-commit_hash a14117a87c307c1767b0fab4f4786885ca1bec28
- commit_hash_abbreviated a14117a
- tree_hash 2ca6246523d36eb2c34a442e81d155b87f4fe7e9
- tree_hash_abbreviated 2ca6246
- parent_hashes d1937fd853fd1c995b0326e94ed4b480aeadfccb
- parent_hashes_abbreviated d1937fd
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Sat Mar 9 18:37:55 2013 +0100
- author_date_rfc2822_style Sat, 9 Mar 2013 18:37:55 +0100
- author_date_relative 6 minutes ago
- author_date_unix_timestamp 1362850675
- author_date_iso_8601 2013-03-09 18:37:55 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Sat Mar 9 18:37:55 2013 +0100
- committer_date_relative 6 minutes ago
- subject Use git log from 'git-log-to-json' project (was from 'git' project until now)
+commit_hash a14117a87c307c1767b0fab4f4786885ca1bec28 commit_hash_abbreviated a14117a tree_hash 2ca6246523d36eb2c34a442e81d155b87f4fe7e9 tree_hash_abbreviated 2ca6246 parent_hashes d1937fd853fd1c995b0326e94ed4b480aeadfccb parent_hashes_abbreviated d1937fd author_name dreamyguy author_email i@dreamyguy.com author_date Sat Mar 9 18:37:55 2013 +0100 author_date_rfc2822_style Sat, 9 Mar 2013 18:37:55 +0100 author_date_relative 78 minutes ago author_date_unix_timestamp 1362850675 author_date_iso_8601 2013-03-09 18:37:55 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Sat Mar 9 18:37:55 2013 +0100 committer_date_relative 78 minutes ago subject Use git log from 'git-log-to-json' project (was from 'git' project until now)
  1 file changed, 216 insertions(+), 530076 deletions(-)
 
-commit_hash d1937fd853fd1c995b0326e94ed4b480aeadfccb
- commit_hash_abbreviated d1937fd
- tree_hash d8fea30dd58fbfeced319f6f5b39c0a1a19f9fc4
- tree_hash_abbreviated d8fea30
- parent_hashes 6baabe6d3a847ba7daad6459ae4a52cabc2de62d
- parent_hashes_abbreviated 6baabe6
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Sat Mar 9 18:14:09 2013 +0100
- author_date_rfc2822_style Sat, 9 Mar 2013 18:14:09 +0100
- author_date_relative 30 minutes ago
- author_date_unix_timestamp 1362849249
- author_date_iso_8601 2013-03-09 18:14:09 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Sat Mar 9 18:14:09 2013 +0100
- committer_date_relative 30 minutes ago
- subject First attempt at JSON format
+commit_hash d1937fd853fd1c995b0326e94ed4b480aeadfccb commit_hash_abbreviated d1937fd tree_hash d8fea30dd58fbfeced319f6f5b39c0a1a19f9fc4 tree_hash_abbreviated d8fea30 parent_hashes 6baabe6d3a847ba7daad6459ae4a52cabc2de62d parent_hashes_abbreviated 6baabe6 author_name dreamyguy author_email i@dreamyguy.com author_date Sat Mar 9 18:14:09 2013 +0100 author_date_rfc2822_style Sat, 9 Mar 2013 18:14:09 +0100 author_date_relative 2 hours ago author_date_unix_timestamp 1362849249 author_date_iso_8601 2013-03-09 18:14:09 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Sat Mar 9 18:14:09 2013 +0100 committer_date_relative 2 hours ago subject First attempt at JSON format
  2 files changed, 530081 insertions(+), 503576 deletions(-)
 
-commit_hash 6baabe6d3a847ba7daad6459ae4a52cabc2de62d
- commit_hash_abbreviated 6baabe6
- tree_hash 9ef45b33071cf5e862a9f19b7dde88370f9f52f6
- tree_hash_abbreviated 9ef45b3
- parent_hashes c6b0c7e95415ddcf8037178104cb24fea699b75c
- parent_hashes_abbreviated c6b0c7e
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 23:18:46 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 23:18:46 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362694726
- author_date_iso_8601 2013-03-07 23:18:46 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 23:18:46 2013 +0100
- committer_date_relative 2 days ago
- subject Add labels to all '--pretty=format' parameters
+commit_hash 6baabe6d3a847ba7daad6459ae4a52cabc2de62d commit_hash_abbreviated 6baabe6 tree_hash 9ef45b33071cf5e862a9f19b7dde88370f9f52f6 tree_hash_abbreviated 9ef45b3 parent_hashes c6b0c7e95415ddcf8037178104cb24fea699b75c parent_hashes_abbreviated c6b0c7e author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 23:18:46 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 23:18:46 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362694726 author_date_iso_8601 2013-03-07 23:18:46 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 23:18:46 2013 +0100 committer_date_relative 2 days ago subject Add labels to all '--pretty=format' parameters
  2 files changed, 503576 insertions(+), 503576 deletions(-)
 
-commit_hash c6b0c7e95415ddcf8037178104cb24fea699b75c
- commit_hash_abbreviated c6b0c7e
- tree_hash 922ec0a088ab7b3ba60a577a5d86b31e3a10c214
- tree_hash_abbreviated 922ec0a
- parent_hashes 0a44c74a4e2bae1807214f522db12a6e20a573aa
- parent_hashes_abbreviated 0a44c74
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 23:08:02 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 23:08:02 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362694082
- author_date_iso_8601 2013-03-07 23:08:02 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 23:08:02 2013 +0100
- committer_date_relative 2 days ago
- subject Add a new line after all '--pretty=format' parameters
+commit_hash c6b0c7e95415ddcf8037178104cb24fea699b75c commit_hash_abbreviated c6b0c7e tree_hash 922ec0a088ab7b3ba60a577a5d86b31e3a10c214 tree_hash_abbreviated 922ec0a parent_hashes 0a44c74a4e2bae1807214f522db12a6e20a573aa parent_hashes_abbreviated 0a44c74 author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 23:08:02 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 23:08:02 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362694082 author_date_iso_8601 2013-03-07 23:08:02 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 23:08:02 2013 +0100 committer_date_relative 2 days ago subject Add a new line after all '--pretty=format' parameters
  2 files changed, 503576 insertions(+), 26505 deletions(-)
 
-commit_hash 0a44c74a4e2bae1807214f522db12a6e20a573aa
- commit_hash_abbreviated 0a44c74
- tree_hash 4116180cb8bf9a1451a82132e87bbd2935d50322
- tree_hash_abbreviated 4116180
- parent_hashes ac07f138e81c54499a91698c77ea5b791cbca9aa
- parent_hashes_abbreviated ac07f13
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 22:46:32 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 22:46:32 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362692792
- author_date_iso_8601 2013-03-07 22:46:32 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 22:46:32 2013 +0100
- committer_date_relative 2 days ago
- subject Introduce all parameters available under '--pretty=format'
+commit_hash 0a44c74a4e2bae1807214f522db12a6e20a573aa commit_hash_abbreviated 0a44c74 tree_hash 4116180cb8bf9a1451a82132e87bbd2935d50322 tree_hash_abbreviated 4116180 parent_hashes ac07f138e81c54499a91698c77ea5b791cbca9aa parent_hashes_abbreviated ac07f13 author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 22:46:32 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 22:46:32 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362692792 author_date_iso_8601 2013-03-07 22:46:32 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 22:46:32 2013 +0100 committer_date_relative 2 days ago subject Introduce all parameters available under '--pretty=format'
  2 files changed, 26505 insertions(+), 26505 deletions(-)
 
-commit_hash ac07f138e81c54499a91698c77ea5b791cbca9aa
- commit_hash_abbreviated ac07f13
- tree_hash ac9e46f0a924f70c6568093f68c46981b2eaa5ea
- tree_hash_abbreviated ac9e46f
- parent_hashes a4f1807189220fcf755de666e45dfb586d844a4a
- parent_hashes_abbreviated a4f1807
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 22:40:26 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 22:40:26 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362692426
- author_date_iso_8601 2013-03-07 22:40:26 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 22:40:26 2013 +0100
- committer_date_relative 2 days ago
- subject Use '--pretty=format' instead of '--pretty=oneline'
+commit_hash ac07f138e81c54499a91698c77ea5b791cbca9aa commit_hash_abbreviated ac07f13 tree_hash ac9e46f0a924f70c6568093f68c46981b2eaa5ea tree_hash_abbreviated ac9e46f parent_hashes a4f1807189220fcf755de666e45dfb586d844a4a parent_hashes_abbreviated a4f1807 author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 22:40:26 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 22:40:26 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362692426 author_date_iso_8601 2013-03-07 22:40:26 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 22:40:26 2013 +0100 committer_date_relative 2 days ago subject Use '--pretty=format' instead of '--pretty=oneline'
  2 files changed, 2 insertions(+), 2 deletions(-)
 
-commit_hash a4f1807189220fcf755de666e45dfb586d844a4a
- commit_hash_abbreviated a4f1807
- tree_hash 28797a8199d531be516e5a12f94ec73c0cb22d0c
- tree_hash_abbreviated 28797a8
- parent_hashes 66926bb2663ca0986c585d6c2656fa055e3ec1d6
- parent_hashes_abbreviated 66926bb
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 22:27:43 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 22:27:43 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362691663
- author_date_iso_8601 2013-03-07 22:27:43 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 22:27:43 2013 +0100
- committer_date_relative 2 days ago
- subject Simplify commit info by adding '--pretty=oneline'
+commit_hash a4f1807189220fcf755de666e45dfb586d844a4a commit_hash_abbreviated a4f1807 tree_hash 28797a8199d531be516e5a12f94ec73c0cb22d0c tree_hash_abbreviated 28797a8 parent_hashes 66926bb2663ca0986c585d6c2656fa055e3ec1d6 parent_hashes_abbreviated 66926bb author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 22:27:43 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 22:27:43 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362691663 author_date_iso_8601 2013-03-07 22:27:43 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 22:27:43 2013 +0100 committer_date_relative 2 days ago subject Simplify commit info by adding '--pretty=oneline'
  2 files changed, 26505 insertions(+), 405872 deletions(-)
 
-commit_hash 66926bb2663ca0986c585d6c2656fa055e3ec1d6
- commit_hash_abbreviated 66926bb
- tree_hash 0872bd8ea5a4771851c4985469e9cdee9dcc4014
- tree_hash_abbreviated 0872bd8
- parent_hashes 3d3b4c180f01db2bbdb1942ca2bdedb9fcb6f398
- parent_hashes_abbreviated 3d3b4c1
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 22:21:22 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 22:21:22 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362691282
- author_date_iso_8601 2013-03-07 22:21:22 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 22:21:22 2013 +0100
- committer_date_relative 2 days ago
- subject Exclude merge commits by adding '--no-merges'
+commit_hash 66926bb2663ca0986c585d6c2656fa055e3ec1d6 commit_hash_abbreviated 66926bb tree_hash 0872bd8ea5a4771851c4985469e9cdee9dcc4014 tree_hash_abbreviated 0872bd8 parent_hashes 3d3b4c180f01db2bbdb1942ca2bdedb9fcb6f398 parent_hashes_abbreviated 3d3b4c1 author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 22:21:22 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 22:21:22 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362691282 author_date_iso_8601 2013-03-07 22:21:22 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 22:21:22 2013 +0100 committer_date_relative 2 days ago subject Exclude merge commits by adding '--no-merges'
  2 files changed, 1 insertion(+), 90150 deletions(-)
 
-commit_hash 3d3b4c180f01db2bbdb1942ca2bdedb9fcb6f398
- commit_hash_abbreviated 3d3b4c1
- tree_hash 3da2c4ead3991888edd0c3a445f46d882f6ae2c0
- tree_hash_abbreviated 3da2c4e
- parent_hashes bc9a179663f00f134041ac750a56df8280e0b50b
- parent_hashes_abbreviated bc9a179
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 22:15:11 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 22:15:11 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362690911
- author_date_iso_8601 2013-03-07 22:15:11 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 22:15:11 2013 +0100
- committer_date_relative 2 days ago
- subject Include commits from all branches by adding '--all'
+commit_hash 3d3b4c180f01db2bbdb1942ca2bdedb9fcb6f398 commit_hash_abbreviated 3d3b4c1 tree_hash 3da2c4ead3991888edd0c3a445f46d882f6ae2c0 tree_hash_abbreviated 3da2c4e parent_hashes bc9a179663f00f134041ac750a56df8280e0b50b parent_hashes_abbreviated bc9a179 author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 22:15:11 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 22:15:11 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362690911 author_date_iso_8601 2013-03-07 22:15:11 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 22:15:11 2013 +0100 committer_date_relative 2 days ago subject Include commits from all branches by adding '--all'
  2 files changed, 19006 insertions(+), 4118 deletions(-)
 
-commit_hash bc9a179663f00f134041ac750a56df8280e0b50b
- commit_hash_abbreviated bc9a179
- tree_hash f80d83c9e8e14ff55b2d77921cb0479bd173bae9
- tree_hash_abbreviated f80d83c
- parent_hashes ee3810c9ff8fe144c9ee58f48d99f59885f03462
- parent_hashes_abbreviated ee3810c
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 20:22:03 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 20:22:03 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362684123
- author_date_iso_8601 2013-03-07 20:22:03 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 20:22:03 2013 +0100
- committer_date_relative 2 days ago
- subject Introduce first revision of 'README.md' file
+commit_hash bc9a179663f00f134041ac750a56df8280e0b50b commit_hash_abbreviated bc9a179 tree_hash f80d83c9e8e14ff55b2d77921cb0479bd173bae9 tree_hash_abbreviated f80d83c parent_hashes ee3810c9ff8fe144c9ee58f48d99f59885f03462 parent_hashes_abbreviated ee3810c author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 20:22:03 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 20:22:03 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362684123 author_date_iso_8601 2013-03-07 20:22:03 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 20:22:03 2013 +0100 committer_date_relative 2 days ago subject Introduce first revision of 'README.md' file
  1 file changed, 71 insertions(+), 3 deletions(-)
 
-commit_hash ee3810c9ff8fe144c9ee58f48d99f59885f03462
- commit_hash_abbreviated ee3810c
- tree_hash c6d102d3311a32a2475ba1539247f7ecc26b23d1
- tree_hash_abbreviated c6d102d
- parent_hashes c7a397928f814f29028bccb281de60066395eaa1
- parent_hashes_abbreviated c7a3979
- author_name dreamyguy
- author_email i@dreamyguy.com
- author_date Thu Mar 7 20:20:42 2013 +0100
- author_date_rfc2822_style Thu, 7 Mar 2013 20:20:42 +0100
- author_date_relative 2 days ago
- author_date_unix_timestamp 1362684042
- author_date_iso_8601 2013-03-07 20:20:42 +0100
- committer_name dreamyguy
- committer_email i@dreamyguy.com
- committer_date Thu Mar 7 20:20:42 2013 +0100
- committer_date_relative 2 days ago
- subject Introduce the simplest form of the main script 'gitlog.sh' and its output 'gitlog.json'
+commit_hash ee3810c9ff8fe144c9ee58f48d99f59885f03462 commit_hash_abbreviated ee3810c tree_hash c6d102d3311a32a2475ba1539247f7ecc26b23d1 tree_hash_abbreviated c6d102d parent_hashes c7a397928f814f29028bccb281de60066395eaa1 parent_hashes_abbreviated c7a3979 author_name dreamyguy author_email i@dreamyguy.com author_date Thu Mar 7 20:20:42 2013 +0100 author_date_rfc2822_style Thu, 7 Mar 2013 20:20:42 +0100 author_date_relative 2 days ago author_date_unix_timestamp 1362684042 author_date_iso_8601 2013-03-07 20:20:42 +0100 committer_name dreamyguy committer_email i@dreamyguy.com committer_date Thu Mar 7 20:20:42 2013 +0100 committer_date_relative 2 days ago subject Introduce the simplest form of the main script 'gitlog.sh' and its output 'gitlog.json'
  2 files changed, 481133 insertions(+)
 
-commit_hash c7a397928f814f29028bccb281de60066395eaa1
- commit_hash_abbreviated c7a3979
- tree_hash e38dac0e625f63e877baa329204511ae490cd944
- tree_hash_abbreviated e38dac0
- parent_hashes 
- parent_hashes_abbreviated 
- author_name Wallace Sidhrée
- author_email i@dreamyguy.com
- author_date Wed Mar 6 09:54:27 2013 -0800
- author_date_rfc2822_style Wed, 6 Mar 2013 09:54:27 -0800
- author_date_relative 3 days ago
- author_date_unix_timestamp 1362592467
- author_date_iso_8601 2013-03-06 09:54:27 -0800
- committer_name Wallace Sidhrée
- committer_email i@dreamyguy.com
- committer_date Wed Mar 6 09:54:27 2013 -0800
- committer_date_relative 3 days ago
- subject Initial commit
+commit_hash c7a397928f814f29028bccb281de60066395eaa1 commit_hash_abbreviated c7a3979 tree_hash e38dac0e625f63e877baa329204511ae490cd944 tree_hash_abbreviated e38dac0 parent_hashes  parent_hashes_abbreviated  author_name Wallace Sidhrée author_email i@dreamyguy.com author_date Wed Mar 6 09:54:27 2013 -0800 author_date_rfc2822_style Wed, 6 Mar 2013 09:54:27 -0800 author_date_relative 3 days ago author_date_unix_timestamp 1362592467 author_date_iso_8601 2013-03-06 09:54:27 -0800 committer_name Wallace Sidhrée committer_email i@dreamyguy.com committer_date Wed Mar 6 09:54:27 2013 -0800 committer_date_relative 3 days ago subject Initial commit
  1 file changed, 4 insertions(+)
