@@ -1,4 +1,26 @@
 {
+ "commit_hash":"a14117a87c307c1767b0fab4f4786885ca1bec28",
+ "commit_hash_abbreviated":"a14117a",
+ "tree_hash":"2ca6246523d36eb2c34a442e81d155b87f4fe7e9",
+ "tree_hash_abbreviated":"2ca6246",
+ "parent_hashes":"d1937fd853fd1c995b0326e94ed4b480aeadfccb",
+ "parent_hashes_abbreviated":"d1937fd",
+ "author_name":"dreamyguy",
+ "author_email":"i@dreamyguy.com",
+ "author_date":"Sat Mar 9 18:37:55 2013 +0100",
+ "author_date_rfc2822_style":"Sat, 9 Mar 2013 18:37:55 +0100",
+ "author_date_relative":"2 minutes ago",
+ "author_date_unix_timestamp":"1362850675",
+ "author_date_iso_8601":"2013-03-09 18:37:55 +0100",
+ "committer_name":"dreamyguy",
+ "committer_email":"i@dreamyguy.com",
+ "committer_date":"Sat Mar 9 18:37:55 2013 +0100",
+ "committer_date_relative":"2 minutes ago",
+ "subject":"Use git log from 'git-log-to-json' project (was from 'git' project until now)"
+},
+ 1 file changed, 216 insertions(+), 530076 deletions(-)
+
+{
  "commit_hash":"d1937fd853fd1c995b0326e94ed4b480aeadfccb",
  "commit_hash_abbreviated":"d1937fd",
  "tree_hash":"d8fea30dd58fbfeced319f6f5b39c0a1a19f9fc4",
@@ -9,15 +31,17 @@
  "author_email":"i@dreamyguy.com",
  "author_date":"Sat Mar 9 18:14:09 2013 +0100",
  "author_date_rfc2822_style":"Sat, 9 Mar 2013 18:14:09 +0100",
- "author_date_relative":"20 minutes ago",
+ "author_date_relative":"26 minutes ago",
  "author_date_unix_timestamp":"1362849249",
  "author_date_iso_8601":"2013-03-09 18:14:09 +0100",
  "committer_name":"dreamyguy",
  "committer_email":"i@dreamyguy.com",
  "committer_date":"Sat Mar 9 18:14:09 2013 +0100",
- "committer_date_relative":"20 minutes ago",
+ "committer_date_relative":"26 minutes ago",
  "subject":"First attempt at JSON format"
 },
+ 2 files changed, 530081 insertions(+), 503576 deletions(-)
+
 {
  "commit_hash":"6baabe6d3a847ba7daad6459ae4a52cabc2de62d",
  "commit_hash_abbreviated":"6baabe6",
@@ -38,6 +62,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Add labels to all '--pretty=format' parameters"
 },
+ 2 files changed, 503576 insertions(+), 503576 deletions(-)
+
 {
  "commit_hash":"c6b0c7e95415ddcf8037178104cb24fea699b75c",
  "commit_hash_abbreviated":"c6b0c7e",
@@ -58,6 +84,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Add a new line after all '--pretty=format' parameters"
 },
+ 2 files changed, 503576 insertions(+), 26505 deletions(-)
+
 {
  "commit_hash":"0a44c74a4e2bae1807214f522db12a6e20a573aa",
  "commit_hash_abbreviated":"0a44c74",
@@ -78,6 +106,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Introduce all parameters available under '--pretty=format'"
 },
+ 2 files changed, 26505 insertions(+), 26505 deletions(-)
+
 {
  "commit_hash":"ac07f138e81c54499a91698c77ea5b791cbca9aa",
  "commit_hash_abbreviated":"ac07f13",
@@ -98,6 +128,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Use '--pretty=format' instead of '--pretty=oneline'"
 },
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
 {
  "commit_hash":"a4f1807189220fcf755de666e45dfb586d844a4a",
  "commit_hash_abbreviated":"a4f1807",
@@ -118,6 +150,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Simplify commit info by adding '--pretty=oneline'"
 },
+ 2 files changed, 26505 insertions(+), 405872 deletions(-)
+
 {
  "commit_hash":"66926bb2663ca0986c585d6c2656fa055e3ec1d6",
  "commit_hash_abbreviated":"66926bb",
@@ -138,6 +172,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Exclude merge commits by adding '--no-merges'"
 },
+ 2 files changed, 1 insertion(+), 90150 deletions(-)
+
 {
  "commit_hash":"3d3b4c180f01db2bbdb1942ca2bdedb9fcb6f398",
  "commit_hash_abbreviated":"3d3b4c1",
@@ -158,6 +194,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Include commits from all branches by adding '--all'"
 },
+ 2 files changed, 19006 insertions(+), 4118 deletions(-)
+
 {
  "commit_hash":"bc9a179663f00f134041ac750a56df8280e0b50b",
  "commit_hash_abbreviated":"bc9a179",
@@ -178,6 +216,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Introduce first revision of 'README.md' file"
 },
+ 1 file changed, 71 insertions(+), 3 deletions(-)
+
 {
  "commit_hash":"ee3810c9ff8fe144c9ee58f48d99f59885f03462",
  "commit_hash_abbreviated":"ee3810c",
@@ -198,6 +238,8 @@
  "committer_date_relative":"2 days ago",
  "subject":"Introduce the simplest form of the main script 'gitlog.sh' and its output 'gitlog.json'"
 },
+ 2 files changed, 481133 insertions(+)
+
 {
  "commit_hash":"c7a397928f814f29028bccb281de60066395eaa1",
  "commit_hash_abbreviated":"c7a3979",
@@ -218,3 +260,4 @@
  "committer_date_relative":"3 days ago",
  "subject":"Initial commit"
 },
+ 1 file changed, 4 insertions(+)
