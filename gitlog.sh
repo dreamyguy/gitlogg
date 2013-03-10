@@ -5,7 +5,7 @@ git log --all --no-merges --shortstat --pretty=format:'commit_hash %H commit_has
 	print "commit_hash_abbreviated " $4;
 	print "tree_hash " $6;
 	print "tree_hash_abbreviated " $8;
-    if ( count == 1 ) {
+	if ( count == 1 ) {
 		print "parent_hashes " "";
 		print "parent_hashes_abbreviated " "";
 		print "author_email " $12;
@@ -21,7 +21,7 @@ git log --all --no-merges --shortstat --pretty=format:'commit_hash %H commit_has
 		print "files_changed " $28;
 		print "insertions " $31;
 		print "deletions " $33;
-    } else {
+	} else {
 		print "parent_hashes " $10;
 		print "parent_hashes_abbreviated " $12;
 		print "author_email " $14;
