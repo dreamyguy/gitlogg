@@ -21,6 +21,7 @@ git log --all --no-merges --shortstat --pretty=format:'commit_hash %H commit_has
 		print "files_changed " $28;
 		print "insertions " $31;
 		print "deletions " $33;
+		print "impact " $31 - $33;
 	} else {
 		print "parent_hashes " $10;
 		print "parent_hashes_abbreviated " $12;
@@ -37,6 +38,7 @@ git log --all --no-merges --shortstat --pretty=format:'commit_hash %H commit_has
 		print "files_changed " $30;
 		print "insertions " $33;
 		print "deletions " $35;
+		print "impact " $33 - $35;
 	}
 	print "";
 }' > gitlog.json

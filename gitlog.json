@@ -18,6 +18,7 @@ committer_email i@dreamyguy.com
 files_changed 1
 insertions 4
 deletions 
+impact 4
 
 commit_nr 2
 commit_hash ee3810c9ff8fe144c9ee58f48d99f59885f03462
@@ -39,6 +40,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 481133
 deletions 
+impact 481133
 
 commit_nr 3
 commit_hash bc9a179663f00f134041ac750a56df8280e0b50b
@@ -60,6 +62,7 @@ committer_email i@dreamyguy.com
 files_changed 1
 insertions 71
 deletions 3
+impact 68
 
 commit_nr 4
 commit_hash 3d3b4c180f01db2bbdb1942ca2bdedb9fcb6f398
@@ -81,6 +84,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 19006
 deletions 4118
+impact 14888
 
 commit_nr 5
 commit_hash 66926bb2663ca0986c585d6c2656fa055e3ec1d6
@@ -102,6 +106,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 1
 deletions 90150
+impact -90149
 
 commit_nr 6
 commit_hash a4f1807189220fcf755de666e45dfb586d844a4a
@@ -123,6 +128,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 26505
 deletions 405872
+impact -379367
 
 commit_nr 7
 commit_hash ac07f138e81c54499a91698c77ea5b791cbca9aa
@@ -144,6 +150,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 2
 deletions 2
+impact 0
 
 commit_nr 8
 commit_hash 0a44c74a4e2bae1807214f522db12a6e20a573aa
@@ -165,6 +172,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 26505
 deletions 26505
+impact 0
 
 commit_nr 9
 commit_hash c6b0c7e95415ddcf8037178104cb24fea699b75c
@@ -186,6 +194,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 503576
 deletions 26505
+impact 477071
 
 commit_nr 10
 commit_hash 6baabe6d3a847ba7daad6459ae4a52cabc2de62d
@@ -207,6 +216,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 503576
 deletions 503576
+impact 0
 
 commit_nr 11
 commit_hash d1937fd853fd1c995b0326e94ed4b480aeadfccb
@@ -228,6 +238,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 530081
 deletions 503576
+impact 26505
 
 commit_nr 12
 commit_hash a14117a87c307c1767b0fab4f4786885ca1bec28
@@ -249,6 +260,7 @@ committer_email i@dreamyguy.com
 files_changed 1
 insertions 216
 deletions 530076
+impact -529860
 
 commit_nr 13
 commit_hash 41b45e5ee16b197ee854821a162ebcdcbb5cb9ba
@@ -270,6 +282,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 47
 deletions 4
+impact 43
 
 commit_nr 14
 commit_hash 28a6f0939b5465b34c462991e4019324e396fb01
@@ -291,6 +304,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 237
 deletions 241
+impact -4
 
 commit_nr 15
 commit_hash e783c65da64f1302cc8c1c86b78709cd2a396c80
@@ -312,6 +326,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 17
 deletions 235
+impact -218
 
 commit_nr 16
 commit_hash 38aa95b33986a863b04b3c7a820588d94899b25f
@@ -333,6 +348,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 16
 deletions 42
+impact -26
 
 commit_nr 17
 commit_hash 5cc8692e983aa99cc7f727ac74aaf1223f4abf46
@@ -354,6 +370,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 17
 deletions 16
+impact 1
 
 commit_nr 18
 commit_hash fb177e776828ae45ff220c2e24d93cb16c31e7e9
@@ -375,6 +392,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 18
 deletions 17
+impact 1
 
 commit_nr 19
 commit_hash ae5e90a7153555d16d3a38ea7dd3df664770b5b4
@@ -396,6 +414,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 382
 deletions 18
+impact 364
 
 commit_nr 20
 commit_hash 04fe2acbc5379a4d7af0eb5eb4f2e518eeff7cea
@@ -417,6 +436,7 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 41
 deletions 
+impact 41
 
 commit_nr 21
 commit_hash c57b3c5d967facab2f09e50ab5b6039f6284b42c
@@ -438,4 +458,49 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 271
 deletions 250
+impact 21
+
+commit_nr 22
+commit_hash 374f7a8134a3b37de7ec721951360245b00dc522
+commit_hash_abbreviated 374f7a8
+tree_hash 99e6dcec29d1aecae5ae86f71d36bdc5ab6e42d7
+tree_hash_abbreviated 99e6dce
+parent_hashes c57b3c5d967facab2f09e50ab5b6039f6284b42c
+parent_hashes_abbreviated c57b3c5
+author_email i@dreamyguy.com
+date_day_week Sun
+date_month_name Mar
+date_month_day 10
+date_hour 12:40:35
+date_year 2013
+date_hour_gmt +0100
+author_date_unix_timestamp 1362915635
+date_iso_8601 2013-03-10
+committer_email i@dreamyguy.com
+files_changed 2
+insertions 68
+deletions 29
+impact 39
+
+commit_nr 23
+commit_hash 4ea0a636ee29b32eaede9d4045fb6d651f7c4ca7
+commit_hash_abbreviated 4ea0a63
+tree_hash 282b764c30022cb8b7daa5d390fc996343df06bd
+tree_hash_abbreviated 282b764
+parent_hashes 374f7a8134a3b37de7ec721951360245b00dc522
+parent_hashes_abbreviated 374f7a8
+author_email i@dreamyguy.com
+date_day_week Sun
+date_month_name Mar
+date_month_day 10
+date_hour 12:43:04
+date_year 2013
+date_hour_gmt +0100
+author_date_unix_timestamp 1362915784
+date_iso_8601 2013-03-10
+committer_email i@dreamyguy.com
+files_changed 1
+insertions 2
+deletions 2
+impact 0
 
