@@ -1,1 +1,22 @@
-git log --all --no-merges --shortstat --pretty=format:'commit_hash %H commit_hash_abbreviated %h tree_hash %T tree_hash_abbreviated %t parent_hashes %P parent_hashes_abbreviated %p author_email %ae author_date %ad author_date_unix_timestamp %at author_date_iso_8601 %ai committer_email %ce' | paste -d " " - - - | awk '{ print "commit_hash " $2 " commit_hash_abbreviated " $4 " tree_hash " $6 " tree_hash_abbreviated " $8 " parent_hashes " $10 " parent_hashes_abbreviated " $12 " author_email " $14 " date_day_week " $16 " date_month_name " $17 " date_month_day " $18 " date_hour " $19 " date_year " $20 " date_hour_gmt " $21 " author_date_unix_timestamp " $23 " date_iso_8601 " $25 " committer_email " $29 " files_changed " $30 " insertions " $33 " deletions " $35; }' > gitlog.json
+git log --all --no-merges --shortstat --pretty=format:'commit_hash %H commit_hash_abbreviated %h tree_hash %T tree_hash_abbreviated %t parent_hashes %P parent_hashes_abbreviated %p author_email %ae author_date %ad author_date_unix_timestamp %at author_date_iso_8601 %ai committer_email %ce' | paste -d " " - - - | awk '{
+	print "commit_hash " $2;
+	print "commit_hash_abbreviated " $4;
+	print "tree_hash " $6;
+	print "tree_hash_abbreviated " $8;
+	print "parent_hashes " $10;
+	print "parent_hashes_abbreviated " $12;
+	print "author_email " $14;
+	print "date_day_week " $16;
+	print "date_month_name " $17;
+	print "date_month_day " $18;
+	print "date_hour " $19;
+	print "date_year " $20;
+	print "date_hour_gmt " $21;
+	print "author_date_unix_timestamp " $23;
+	print "date_iso_8601 " $25;
+	print "committer_email " $29;
+	print "files_changed " $30;
+	print "insertions " $33;
+	print "deletions " $35;
+	print "";
+}' > gitlog.json
