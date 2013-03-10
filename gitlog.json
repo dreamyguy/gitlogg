@@ -3,20 +3,20 @@ commit_hash c7a397928f814f29028bccb281de60066395eaa1
 commit_hash_abbreviated c7a3979
 tree_hash e38dac0e625f63e877baa329204511ae490cd944
 tree_hash_abbreviated e38dac0
-parent_hashes parent_hashes_abbreviated
-parent_hashes_abbreviated i@dreamyguy.com
-author_email Wed
-date_day_week 6
-date_month_name 09:54:27
-date_month_day 2013
-date_hour -0800
-date_year author_date_unix_timestamp
-date_hour_gmt 1362592467
-author_date_unix_timestamp 2013-03-06
-date_iso_8601 -0800
-committer_email file
-files_changed changed,
-insertions 
+parent_hashes 
+parent_hashes_abbreviated 
+author_email i@dreamyguy.com
+date_day_week Wed
+date_month_name Mar
+date_month_day 6
+date_hour 09:54:27
+date_year 2013
+date_hour_gmt -0800
+author_date_unix_timestamp 1362592467
+date_iso_8601 2013-03-06
+committer_email i@dreamyguy.com
+files_changed 1
+insertions 4
 deletions 
 
 commit_nr 2
@@ -417,4 +417,25 @@ committer_email i@dreamyguy.com
 files_changed 2
 insertions 41
 deletions 
+
+commit_nr 21
+commit_hash c57b3c5d967facab2f09e50ab5b6039f6284b42c
+commit_hash_abbreviated c57b3c5
+tree_hash 9669c2e5764de82ef20979475e235fd24732a089
+tree_hash_abbreviated 9669c2e
+parent_hashes 04fe2acbc5379a4d7af0eb5eb4f2e518eeff7cea
+parent_hashes_abbreviated 04fe2ac
+author_email i@dreamyguy.com
+date_day_week Sun
+date_month_name Mar
+date_month_day 10
+date_hour 12:18:57
+date_year 2013
+date_hour_gmt +0100
+author_date_unix_timestamp 1362914337
+date_iso_8601 2013-03-10
+committer_email i@dreamyguy.com
+files_changed 2
+insertions 271
+deletions 250
 
