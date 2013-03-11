@@ -11,7 +11,7 @@ BEGIN {
 	print t t t q "commit_hash_abbreviated" q c q $4 q e;
 	print t t t q "tree_hash" q c q $6 q e;
 	print t t t q "tree_hash_abbreviated" q c q $8 q e;
-    if ( count == 1 ) {
+	if ( count == 1 ) {
 		print t t t q "parent_hashes" q c q "" q e;
 		print t t t q "parent_hashes_abbreviated" q c q "" q e;
 		print t t t q "author_email" q c q $12 q e;
@@ -28,7 +28,7 @@ BEGIN {
 		print t t t q "insertions" q c q $31 q e;
 		print t t t q "deletions" q c q $33 q e;
 		print t t t q "impact" q c q $31 - $33 q;
-    } else {
+	} else {
 		print t t t q "parent_hashes" q c q $10 q e;
 		print t t t q "parent_hashes_abbreviated" q c q $12 q e;
 		print t t t q "author_email" q c q $14 q e;
