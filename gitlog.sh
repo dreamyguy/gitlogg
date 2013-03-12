@@ -5,6 +5,9 @@ BEGIN {
 }
 {
 	count++;
+	if ( count > 1 ) {
+		printf "%s\n", e
+	}
 	print t t cl;
 	print t t t q "commit_nr" q c q count q e;
 	print t t t q "commit_hash" q c q $2 q e;
@@ -46,8 +49,8 @@ BEGIN {
 		print t t t q "deletions" q c q $35 q e;
 		print t t t q "impact" q c q $33 - $35 q;
 	}
-	print t t cr e;
+	printf "%s%s%s", t, t, cr;
 } END {
-	print t br;
+	printf "\n%s%s\n", t, br;
 	print cr;
 }' > gitlog.json
