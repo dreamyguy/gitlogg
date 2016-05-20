@@ -1,191 +1,215 @@
-# Git log to JSON
+# Gitlogg - Parse `git log` to `JSON`
 
-> _A **study project** to parse **git log** as **JSON** - so that the git log is made available for JavaScript awesomeness._
+> _Parse the `git log` of one or several `git` repositories into a clean, ready-to-use `JSON` file._
 
-#### The main goal
+#### Why?
 
-> _Render the `git log` of a `git` repository in a clean, ready-to-use `JSON` format._
+`git log` is a wonderful tool. However its output can be not only surprisingly inconsistent, but also long, difficult to scan and to distribute.
 
-#### The long-term goal
+**Gitlogg** sanitises the `git log` and outputs it to `JSON`, a format that can easily be consumed by other applications. As long as the repositories being scanned are kept up to date, **Gitlogg** will return fresh data every time it runs.
 
-> _Expand from the main goal in a way that gives owners & administrators of several repositories a global overview over authors and their impact in all their repos + on each separate repository separately, if desired._
+## Requirements
 
-## Modes
+[NodeJS][2] and [BabelJS][3].
 
-There are currently two modes: **Single Git Repository** and **Multiple Git Repositories**.
+1. Install `NodeJS` (visit [their page][2] to find the right install for your system).
+2. Install `BabelJS` globally by running `npm install babel-cli -g`. One can also choose to install it locally by simply running `npm install babel-cli`, but in most cases it is smarter to install `-cli` packages globally.
+3. Run `npm install` to install the remaining dependencies.
 
-In either mode, the `JSON` output gets parsed by running a shell script from terminal, which is then rendered to a file.
+## The `JSON` output
 
-#### Single Git Repository
+The output will look like this (first commit for **Font Awesome**):
 
-The single mode consists in running the `gitlog.sh` shell script from terminal. To run it:
+    {
+      "commits": [
+        {
+          "repository": "Font-Awesome",
+          "commit_hash": "7ed221e28df1745a20009329033ac690ef000575",
+          "author_name": "Dave Gandy",
+          "author_email": "dave@davegandy.com",
+          "author_date": "Fri Feb 17 09:27:26 2012 -0500",
+          "author_date_relative": "4 years, 3 months ago",
+          "author_date_unix_timestamp": "1329488846",
+          "author_date_iso_8601": "2012-02-17 09:27:26 -0500",
+          "subject": "first commit",
+          "subject_sanitized": "first-commit",
+          "stats": " 1 file changed, 0 insertions(+), 0 deletions(-)",
+          "time_hour": "09",
+          "time_minutes": "27",
+          "time_seconds": "26",
+          "time_gmt": "-0500",
+          "date_day_week": "Fri",
+          "date_month_day": "17",
+          "date_month_name": "Feb",
+          "date_month_number": "02",
+          "date_year": "2012",
+          "date_iso_8601": "2012-02-17",
+          "files_changed": 1,
+          "insertions": 0,
+          "deletions": 0,
+          "impact": 0
+        },
+        {
+          (...)
+        },
+        {
+          (...)
+        }
+      ]
+    }
 
-1. Copy `gitlog.sh` to the root of your repository in whichever way you prefer.
+Note that many `git log` fields were not printed here, but that's only because I've commented out some of them in the retrieve data script. All the fields below are available. Fields marked with a `*` are either non-standard or not available as placeholders on `--pretty=format:<string>`:
 
-2. Navigate to your repository's directory:
+    * repository
+      commit_hash
+      commit_hash_abbreviated
+      tree_hash
+      tree_hash_abbreviated
+      parent_hashes
+      parent_hashes_abbreviated
+      author_name
+      author_name_mailmap
+      author_email
+      author_email_mailmap
+      author_date
+      author_date_RFC2822
+      author_date_relative
+      author_date_unix_timestamp
+      author_date_iso_8601
+      author_date_iso_8601_strict
+      committer_name
+      committer_name_mailmap
+      committer_email
+      committer_email_mailmap
+      committer_date
+      committer_date_RFC2822
+      committer_date_relative
+      committer_date_unix_timestamp
+      committer_date_iso_8601
+      committer_date_iso_8601_strict
+      ref_names
+      ref_names_no_wrapping
+      encoding
+      subject
+      subject_sanitized
+      commit_notes
+    * stats
+    * time_hour
+    * time_minutes
+    * time_seconds
+    * time_gmt
+    * date_day_week
+    * date_month_day
+    * date_month_name
+    * date_month_number
+    * date_year
+    * date_iso_8601
+    * files_changed
+    * insertions
+    * deletions
+    * impact
 
-        $ cd path/to/repository/
+## Creating the `JSON` file
+
+There are two modes and they are basically the same, except that the **Simple Mode** doesn't require configuration. The **Advanced Mode** requires one to set the absolute path to the directory containing all the repositories you'd like to parse to a single `JSON` file.
+
+#### Simple Mode
+
+To simplify the generation process to a point that no configuration is required, follow this directory structure:
+
+    .
+    ├── gitlogg
+    │   ├── gitlogg-generate-log.sh
+    │   ├── gitlogg-retrieve-data.js
+    │   ├── gitlogg.json
+    │   └── gitlogg.sh
+    └── repos         <== place/keep your repositories under the folder "repos"
+        ├── repo1
+        ├── repo2
+        ├── repo3
+        └── repo4
+
+1. Copy the `gitlogg` folder and all its content to the indicated relative path to your local repositories (shown above).
+
+2. Navigate to the `gitlogg` directory:
+
+        $ cd path/to/the/folder/in/your/system/gitlogg/
 
 3. Run it:
 
-        $ ./gitlog.sh
+        $ ./gitlogg.sh
 
-> _A `gitlog.json` file will be generated at the root of your repository._
+#### Advanced Mode
 
-#### Multiple Git Repositories
+To generate the `JSON` file based on repositories in any other location, you'll have to define the path to the folder that contains all your repositories.
 
-The multiple mode consists in running the `gitlog_all.sh` shell script from terminal. This script can be run from any location, but you'll have to define the path to the folder that contains all your repositories. To run it:
+1. Copy the `gitlogg` folder and all its content to a folder of your preference, it really doesn't matter where it is.
 
-1. Copy `gitlog_all.sh` to the folder of your preference.
-
-2. Open `gitlog_all.sh` with an editor of your choice and edit the following line:
+2. Open `gitlogg.sh` with an editor of your choice and edit the `yourpath` variable:
 
         # define the absolute path to the directory that contains all your repositories (the trailing asterix [/*] represents all the repository folders)
         yourpath=~/path/to/directory/that/contains/all/your/repositories/*/
 
-2. Navigate to the directory that you copied the script to:
+3. Navigate to the `gitlogg` directory:
 
-        $ cd path/to/script/
+        $ cd path/to/the/folder/in/your/system/gitlogg/
 
-3. Run it:
+4. Run it:
 
-        $ ./gitlog_all.sh
+        $ ./gitlogg.sh
 
-> _Two files will be generated at the folder your script is located. `gitlog_all.tmp` and `gitlog_all.json`._
+## The parsed `JSON` file
 
-Two files were necessary because of the nature of the script, that loops through all subdirectories and outputs the `git log` for all valid `git` repositories. Once that loop is done, a valid `JSON` file (`gitlog_all-json`) is generated out of `gitlog_all.tmp`.
+> _Two files will be generated at the `gitlogg` folder: `gitlogg.tmp` and `gitlogg.json`._
 
-## The JSON output
+Two files were necessary because of the nature of the script, that loops through all subdirectories and outputs the `git log` for all valid `git` repositories. Once that loop is done, a valid `JSON` file (`gitlogg.json`) is generated out of `gitlogg.tmp`.
 
-Depending on the mode you're using, the file that contain the parsed `git log` in `JSON` format will have two different names: `gitlog.json` or `gitlog_all.json`. These files can then be used to do all kind of funky JavaScript stuff. :beer:
-
-#### JSON output for Single Git Repository
-
-    {
-        "commits":[
-            {
-                "commit_nr":"1",
-                "commit_hash":"c7a397928f814f29028bccb281de60066395eaa1",
-                (...)
-                "impact":"4"
-            },
-            {
-                "commit_nr":"2",
-                "commit_hash":"ee3810c9ff8fe144c9ee58f48d99f59885f03462",
-                (...)
-                "impact":"481133"
-            },
-            {
-                "commit_nr":"3",
-                "commit_hash":"bc9a179663f00f134041ac750a56df8280e0b50b",
-                (...)
-                "impact":"68"
-            }
-        ]
-    }
-
-
-#### JSON output for Multiple Git Repositories
-
-    {
-        "commits":[
-            {
-                "repository":"grunt-contrib-csslint",
-                "commit_nr":"1",
-                "commit_hash":"f96abb1dab054b4b6a7c5364235b75fa01d4664d",
-                (...)
-                "impact":"356"
-            },
-            {
-                "repository":"grunt-contrib-csslint",
-                "commit_nr":"2",
-                "commit_hash":"917d1efec749f2a1f2eb532f4af4a105baa3a10d",
-                (...)
-                "impact":"-44"
-            },
-            {
-                "repository":"grunt-contrib-csslint",
-                "commit_nr":"3",
-                "commit_hash":"be42f23b64ded8c9e182d2e8b4774a1a584e071e",
-                (...)
-                "impact":"141"
-            },
-            {
-                "repository":"grunt-contrib-htmlmin",
-                "commit_nr":"1",
-                "commit_hash":"989ef4dfd939efd168af2b16687d92ff4e9f9fff",
-                (...)
-                "impact":"240"
-            },
-            {
-                "repository":"grunt-contrib-htmlmin",
-                "commit_nr":"2",
-                "commit_hash":"86c97d8c7429632d9773a03fc405fb8f46912bb4",
-                (...)
-                "impact":"349"
-            },
-            {
-                "repository":"grunt-contrib-htmlmin",
-                "commit_nr":"3",
-                "commit_hash":"3da774dd78d28d07d56ee2cf53f766985e669261",
-                (...)
-                "impact":"-4"
-            },
-            {
-                "repository":"grunt-lib-phantomjs",
-                "commit_nr":"1",
-                "commit_hash":"c999ca06a886bc1aad2d5dd9c88c808f5cf0a2b9",
-                (...)
-                "impact":"412"
-            },
-            {
-                "repository":"grunt-lib-phantomjs",
-                "commit_nr":"2",
-                "commit_hash":"53c2ff150b75c110552a1623d541bdc737a0d4a0",
-                (...)
-                "impact":"12"
-            },
-            {
-                "repository":"grunt-lib-phantomjs",
-                "commit_nr":"3",
-                "commit_hash":"682525b8287bb0285829a29d7c9851e879100a67",
-                (...)
-                "impact":"1"
-            }
-        ]
-    }
-
+`gitlogg.tmp` is just a temporary file from which `gitlogg.json` bases itself on. In case the parsing fails `gitlogg.tmp` can come in handy for debugging.
 
 ## Further Notes
 
-> #### Requirements
+#### **Gitlogg** addresses the following challenges:
 
-The project is being developed on **iTerm 1.0** and **Sublime Text 2** on **OSX Mountain Lion**.
+* `git log` can only be used on a repository at a time.
+* `git log` can't be easily consumed by other applications in its original format.
+* `git log` doesn't return **impact**, which is the cumulative change brought by a single commit. Very interesting graphs can be built with that data, as shown on [sidhree.com][1].
+* Fields that allow user input, like `subject`, need to be sanitised to be consumed.
+* File changes shown under `--stat` or `--shortstat` are currently not available as placeholders under `--pretty=format:<string>`, and it is cumbersome to get commit logs to output neatly in single lines - with stats.
+* It is hard to retrieve commits made on a specific but generic moment, like "11pm"; at the "27th minute" of an hour; on a "Sunday"; on "March"; on "GMT -5"; on the "53rd second of a minute".
+* Some commits don't have stats, and that can cause the structure of the output to break, making it harder to distribute it.
 
-I assume that **any text editor** and **terminal-equivalent** on an **UNIX system** would be up to the task, but don't know what it would take to get the same done in Windows OS. The commands used (so far) are pretty standard, but there you have it: I just don't know if it would work on Windows...
+#### Documentation
 
-> #### Documentation
+Documentation is done either by:
 
-Since this project is really not that big deal, documentation is done either by:
-
-* commit messages,
-* commit comments,
-* code comments.
+* Commit messages,
+* Commit comments,
+* Code comments,
+* `README.md` files, like this one.
 
 Some of the initial commits were done deliberately to show what one gets with short commands like `$ git log`. From that initial state commits keep on introducing simplicity or complexity to the code, depending on the work flow. That in itself is a form of documentation. In other words, if you're really that interested in details, there are plenty to be had in the code itself and in its own progressive enhancement.
 
-> #### License
+#### License
 
-This one ain't got no license! If you ever manage to dominate the world with this script, be my guest. Just gimme some credit when they ask who the hell came up with the idea... :earth_americas:
+[MIT](LICENSE)
 
-> #### Disclaimer
+#### Disclaimer
 
-This project is by no means the smartest way to parse a `git log` to `JSON`, nor does it aim at becoming so. It is simply put a simple _learn-by-doing_ project in which I experiment with commands available on OSX's Terminal and whatever else I find along the way.
+This project is by no means the smartest way to parse a `git log` to `JSON`, nor does it aim at becoming so. It is simply a _learn-by-doing_ project in which I experiment with commands available on OSX's Terminal and whatever else I find along the way.
 
-It's certainly not harmful to your repository and it won't change any data in it. Having said that, it's served _raw_ and with _'as is'_. **No support**, nada.
+**Gitlogg** was built and tested on OSX. Though an effort has been done to make it cross-platform, there could be errors on other systems.
+
+It's certainly not harmful to your repositories and it won't change any data in it. Having said that, it's served _raw_ and _'as is'_. You may get support, but don't expect it nor take it for granted.
+
+#### Release History
+
+* 2016-05-21   [v0.1.1](https://github.com/dreamyguy/gitlogg/tree/v0.1.1)   The 'gitlogg' release, the node-based JSON generation
+* 2016-05-20   [v0.1.0](https://github.com/dreamyguy/gitlogg/tree/v0.1.0)   The 'git-log-to-json' release, now considered legacy
 
 -------------
 
-> _Brought to you by [Dreamyguy.com] [1], with the help of many other awesome internet dudes!_
+> _Brought to you by [Wallace Sidhrée][1]._
 
-  [1]: http://dreamyguy.com/        "Dreamyguy"
+  [1]: http://sidhree.com/ "Wallace Sidhrée"
+  [2]: https://nodejs.org/en/ "NodeJS"
+  [3]: https://babeljs.io/ "BabelJS"
