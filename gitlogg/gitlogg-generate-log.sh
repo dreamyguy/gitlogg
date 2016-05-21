@@ -17,22 +17,24 @@ Whi='\033[0;37m';     BWhi='\033[1;37m';    UWhi='\033[4;37m';    IWhi='\033[0;9
 yourpath=../repos/
 
 # ensure there's always a '/' at the end of the 'yourpath' variable, since its value can be changed by user.
-# 'thepath' sets the path to each repository under 'yourpath' (the trailing asterix [/*] represents all the repository folders).
 case "$yourpath" in
   */)
-    thepath="${yourpath}*/"
+    yourpathSanitized="${yourpath}"   # no changes if there's already a slash at the end - syntax sugar
     ;;
   *)
-    thepath="${yourpath}/*/"
+    yourpathSanitized="${yourpath}/"  # add a slash at the end if there isn't already one
     ;;
 esac
+
+# 'thepath' sets the path to each repository under 'yourpath' (the trailing asterix [*/] represents all the repository folders).
+thepath="${yourpathSanitized}*/"
 
 # start counting seconds elapsed
 SECONDS=0
 
-# if the path exists
-if [ -d "${yourpath}" ]; then
-  echo -e "${Yel}Generating git log for all repositories located at ${Red}'${thepath}'${RCol}"
+# if the path exists and if the path is not empty
+if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
+  echo -e "${Yel}Generating ${Pur}git log ${Yel}for all repositories located at ${Red}'${thepath}'${RCol}"
   for dir in $thepath
   do
       (cd $dir &&
@@ -53,7 +55,12 @@ if [ -d "${yourpath}" ]; then
   done > gitlogg.tmp
   echo -e "${Gre}The file ${Blu}./gitlogg.tmp ${Gre}generated in${RCol}: ${SECONDS}s" &&
   babel gitlogg-parse-json.js | node        # only parse JSON if we have a source to parse it from
-else
-  echo -e "${Whi}[ERROR 001]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel} on the file ${Blu}'gitlogg-generate-log.sh' ${Yel}does not exist!${RCol}"
+# if the path exists but is empty
+elif [ -d "${yourpathSanitized}" ] && [ ! "$(ls $yourpathSanitized)" ]; then
+  echo -e "${Whi}[ERROR 002]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'gitlogg-generate-log.sh' ${UYel}exists, but is empty!${RCol}"
   echo -e "${Yel}Please move the repos to ${Red}'${yourpath}'${Yel} or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"
+# if the path does not exists
+elif [ ! -d "${yourpathSanitized}" ]; then
+  echo -e "${Whi}[ERROR 001]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'gitlogg-generate-log.sh' ${UYel}does not exist!${RCol}"
+  echo -e "${Yel}Please create ${Red}'${yourpath}'${Yel} and move the repos under it, or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"
 fi

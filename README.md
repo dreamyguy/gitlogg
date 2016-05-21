@@ -22,11 +22,14 @@
 
 **Gitlogg** is not a very complex application, but I still made an effort to provide some feedback on what is happening under the hood. Below are some screenshots of dialogs one can expect to see while executing it:
 
-![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.2")
+![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.3")
 > **Success!** `JSON` parsed, based on **7** different repositories with a total of **7375** commits.
 
-![Error 001](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/error-001.png "'Error 001' message as on release v0.1.2")
-> **Øh nøes!** The path to the folder containing all repositories needs to be reviewed...
+![Error 001](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/error-001.png "'Error 001' message as on release v0.1.3")
+> **Øh nøes!** The path to the folder containing all repositories *does not exist!*
+
+![Error 002](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/error-002.png "'Error 002' message as on release v0.1.3")
+> **Øh nøes!** The path to the folder containing all repositories *exists, but is empty!*
 
 ## Requirements
 
@@ -213,6 +216,7 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 #### Release History
 
+* 2016-05-21   [v0.1.3](https://github.com/dreamyguy/gitlogg/tree/v0.1.3)   Even better error handling
 * 2016-05-21   [v0.1.2](https://github.com/dreamyguy/gitlogg/tree/v0.1.2)   Better error handling
 * 2016-05-21   [v0.1.1](https://github.com/dreamyguy/gitlogg/tree/v0.1.1)   The 'gitlogg' release, the node-based JSON generation
 * 2016-05-20   [v0.1.0](https://github.com/dreamyguy/gitlogg/tree/v0.1.0)   The 'git-log-to-json' release, now considered legacy
