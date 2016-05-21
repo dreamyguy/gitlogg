@@ -16,8 +16,18 @@ Whi='\033[0;37m';     BWhi='\033[1;37m';    UWhi='\033[4;37m';    IWhi='\033[0;9
 # define the absolute path to the directory that contains all your repositories (the trailing asterix [/*] represents all the repository folders)
 yourpath=../repos/
 
-thepath="${yourpath}*/"
+# ensure there's always a '/' at the end of the 'yourpath' variable, since its value can be changed by user.
+# 'thepath' sets the path to each repository under 'yourpath'.
+case "$yourpath" in
+  */)
+    thepath="${yourpath}*/"
+    ;;
+  *)
+    thepath="${yourpath}/*/"
+    ;;
+esac
 
+# start counting seconds elapsed
 SECONDS=0
 
 # if the path exists
