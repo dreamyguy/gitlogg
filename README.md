@@ -143,8 +143,7 @@ To simplify the generation process to a point that no configuration is required,
     .
     ├── gitlogg
     │   ├── gitlogg-generate-log.sh
-    │   ├── gitlogg-retrieve-data.js
-    │   ├── gitlogg.json
+    │   ├── gitlogg-parse-json.js
     │   └── gitlogg.sh
     └── repos         <== place/keep your repositories under the folder "repos"
         ├── repo1
