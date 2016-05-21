@@ -23,8 +23,10 @@
 **Gitlogg** is not a very complex application, but I still made an effort to provide some feedback on what is happening under the hood. Below are some screenshots of dialogs one can expect to see while executing it:
 
 ![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.2")
+> **Success!** `JSON` parsed, based on **7** different repositories with a total of **7375** commits.
 
 ![Error 001](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/error-001.png "'Error 001' message as on release v0.1.2")
+> **Øh nøes!** The path to the folder containing all repositories needs to be reviewed...
 
 ## Requirements
 
