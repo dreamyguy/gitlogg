@@ -23,7 +23,6 @@
   "copyright": "Copyright (c) Wallace Sidhrée - All rights reserved.",
   "license": "MIT",
   "devDependencies": {
-    "babel-cli": "^6.9.0",
     "babel-preset-es2015": "^6.9.0",
     "chalk": "^1.1.3"
   },
