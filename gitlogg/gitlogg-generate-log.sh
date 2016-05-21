@@ -32,7 +32,7 @@ thepath="${yourpathSanitized}*/"
 # start counting seconds elapsed
 SECONDS=0
 
-# if the path exists and if the path is not empty
+# if the path exists and is not empty
 if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
   echo -e "${Yel}Generating ${Pur}git log ${Yel}for all repositories located at ${Red}'${thepath}'${RCol}"
   for dir in $thepath
@@ -42,7 +42,7 @@ if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
           sed '/^[ \t]*$/d' |               # remove all newlines/line-breaks, including those with empty spaces
           tr '\n' '§' |                     # convert newlines/line-breaks to a character, so we can manipulate it without much trouble
           tr '\r' '§' |                     # convert carriage returns to a character, so we can manipulate it without much trouble
-          sed 's/t§commits/t§§commits/g' |  # because some commits have no stats, we have to create an extra line-break to make `paste -d ' ' -` consistent
+          sed 's/t§commits/t§§commits/g' |  # because some commits have no stats, we have to create an extra line-break to make `paste -d ' ' - -` consistent
           tr '§' '\n' |                     # bring back all line-breaks
           sed '{
               N
