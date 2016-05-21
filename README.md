@@ -167,8 +167,8 @@ To generate the `JSON` file based on repositories in any other location, you'll 
 
 2. Open `gitlogg.sh` with an editor of your choice and edit the `yourpath` variable:
 
-        # define the absolute path to the directory that contains all your repositories (the trailing asterix [/*] represents all the repository folders)
-        yourpath=~/path/to/directory/that/contains/all/your/repositories/*/
+        # define the absolute path to the directory that contains all your repositories
+        yourpath=~/path/to/directory/that/contains/all/your/repositories/
 
 3. Navigate to the `gitlogg` directory:
 

@@ -13,11 +13,11 @@ Pur='\033[0;35m';     BPur='\033[1;35m';    UPur='\033[4;35m';    IPur='\033[0;9
 Cya='\033[0;36m';     BCya='\033[1;36m';    UCya='\033[4;36m';    ICya='\033[0;96m';    BICya='\033[1;96m';   On_Cya='\033[46m';    On_ICya='\033[0;106m';
 Whi='\033[0;37m';     BWhi='\033[1;37m';    UWhi='\033[4;37m';    IWhi='\033[0;97m';    BIWhi='\033[1;97m';   On_Whi='\033[47m';    On_IWhi='\033[0;107m';
 
-# define the absolute path to the directory that contains all your repositories (the trailing asterix [/*] represents all the repository folders)
+# define the absolute path to the directory that contains all your repositories.
 yourpath=../repos/
 
 # ensure there's always a '/' at the end of the 'yourpath' variable, since its value can be changed by user.
-# 'thepath' sets the path to each repository under 'yourpath'.
+# 'thepath' sets the path to each repository under 'yourpath' (the trailing asterix [/*] represents all the repository folders).
 case "$yourpath" in
   */)
     thepath="${yourpath}*/"
