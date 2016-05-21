@@ -52,7 +52,7 @@ if [ -d "${yourpath}" ]; then
       )
   done > gitlogg.tmp
   echo -e "${Gre}The file ${Blu}./gitlogg.tmp ${Gre}generated in${RCol}: ${SECONDS}s" &&
-  babel gitlogg-retrieve-data.js | node     # only parse JSON if we have a source to parse it from
+  babel gitlogg-parse-json.js | node        # only parse JSON if we have a source to parse it from
 else
   echo -e "${Whi}[ERROR 001]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel} on the file ${Blu}'gitlogg-generate-log.sh' ${Yel}does not exist!${RCol}"
   echo -e "${Yel}Please move the repos to ${Red}'${yourpath}'${Yel} or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"

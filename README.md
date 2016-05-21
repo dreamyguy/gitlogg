@@ -68,7 +68,7 @@ The output will look like this (first commit for **Font Awesome**):
       ]
     }
 
-Note that many `git log` fields were not printed here, but that's only because I've commented out some of them in the retrieve data script. All the fields below are available. Fields marked with a `*` are either non-standard or not available as placeholders on `--pretty=format:<string>`:
+Note that many `git log` fields were not printed here, but that's only because I've commented out some of them in the **gitlogg-parse-json.js** script. All the fields below are available. Fields marked with a `*` are either non-standard or not available as placeholders on `--pretty=format:<string>`:
 
     * repository
       commit_hash
