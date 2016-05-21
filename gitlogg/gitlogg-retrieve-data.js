@@ -140,5 +140,5 @@ fs.writeFile(output_file, JSON.stringify(output, null, 2), function(err) {
     if(err) {
         return console.log(chalk.red(err, 'Something went wrong, the file could not be written / saved'));
     }
-    console.log(chalk.green('The file ' + chalk.red(output_file) + ' was saved! '));
+    console.log(chalk.green('The file ' + chalk.blue(output_file) + ' was saved! '));
 });

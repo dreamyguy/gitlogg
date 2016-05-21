@@ -1,12 +1,22 @@
-# Gitlogg - Parse `git log` to `JSON`
+# Gitlogg
 
-> _Parse the `git log` of one or several `git` repositories into a clean, ready-to-use `JSON` file._
+> _Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file._
 
-#### Why?
+## Why?
 
 `git log` is a wonderful tool. However its output can be not only surprisingly inconsistent, but also long, difficult to scan and to distribute.
 
 **Gitlogg** sanitises the `git log` and outputs it to `JSON`, a format that can easily be consumed by other applications. As long as the repositories being scanned are kept up to date, **Gitlogg** will return fresh data every time it runs.
+
+#### **Gitlogg** addresses the following challenges:
+
+* `git log` can only be used on a repository at a time.
+* `git log` can't be easily consumed by other applications in its original format.
+* `git log` doesn't return **impact**, which is the cumulative change brought by a single commit. Very interesting graphs can be built with that data, as shown on [sidhree.com][1].
+* Fields that allow user input, like `subject`, need to be sanitised to be consumed.
+* File changes shown under `--stat` or `--shortstat` are currently not available as placeholders under `--pretty=format:<string>`, and it is cumbersome to get commit logs to output neatly in single lines - with stats.
+* It is hard to retrieve commits made on a specific but generic moment, like "11pm"; at the "27th minute" of an hour; on a "Sunday"; on "March"; on "GMT -5"; on the "53rd second of a minute".
+* Some commits don't have stats, and that can cause the structure of the output to break, making it harder to distribute it.
 
 ## Requirements
 
@@ -167,16 +177,6 @@ Two files were necessary because of the nature of the script, that loops through
 `gitlogg.tmp` is just a temporary file from which `gitlogg.json` bases itself on. In case the parsing fails `gitlogg.tmp` can come in handy for debugging.
 
 ## Further Notes
-
-#### **Gitlogg** addresses the following challenges:
-
-* `git log` can only be used on a repository at a time.
-* `git log` can't be easily consumed by other applications in its original format.
-* `git log` doesn't return **impact**, which is the cumulative change brought by a single commit. Very interesting graphs can be built with that data, as shown on [sidhree.com][1].
-* Fields that allow user input, like `subject`, need to be sanitised to be consumed.
-* File changes shown under `--stat` or `--shortstat` are currently not available as placeholders under `--pretty=format:<string>`, and it is cumbersome to get commit logs to output neatly in single lines - with stats.
-* It is hard to retrieve commits made on a specific but generic moment, like "11pm"; at the "27th minute" of an hour; on a "Sunday"; on "March"; on "GMT -5"; on the "53rd second of a minute".
-* Some commits don't have stats, and that can cause the structure of the output to break, making it harder to distribute it.
 
 #### Documentation
 
