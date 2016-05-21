@@ -38,7 +38,7 @@ if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
   for dir in $thepath
   do
       (cd $dir &&
-        git log --all --no-merges --shortstat --pretty=format:'commits\trepository\t'"${PWD##*/}"'\tcommit_hash\t%H\tcommit_hash_abbreviated\t%h\ttree_hash\t%T\ttree_hash_abbreviated\t%t\tparent_hashes\t%P\tparent_hashes_abbreviated\t%p\tauthor_name\t%an\tauthor_name_mailmap\t%aN\tauthor_email\t%ae\tauthor_email_mailmap\t%aE\tauthor_date\t%ad\tauthor_date_RFC2822\t%aD\tauthor_date_relative\t%ar\tauthor_date_unix_timestamp\t%at\tauthor_date_iso_8601\t%ai\tauthor_date_iso_8601_strict\t%aI\tcommitter_name\t%cn\tcommitter_name_mailmap\t%cN\tcommitter_email\t%ce\tcommitter_email_mailmap\t%cE\tcommitter_date\t%cd\tcommitter_date_RFC2822\t%cD\tcommitter_date_relative\t%cr\tcommitter_date_unix_timestamp\t%ct\tcommitter_date_iso_8601\t%ci\tcommitter_date_iso_8601_strict\t%cI\tref_names\t%d\tref_names_no_wrapping\t%D\tencoding\t%e\tsubject\t%s\tsubject_sanitized\t%f\tcommit_notes\t%N\tstats\t' |
+        git log --all --no-merges --shortstat --reverse --pretty=format:'commits\trepository\t'"${PWD##*/}"'\tcommit_hash\t%H\tcommit_hash_abbreviated\t%h\ttree_hash\t%T\ttree_hash_abbreviated\t%t\tparent_hashes\t%P\tparent_hashes_abbreviated\t%p\tauthor_name\t%an\tauthor_name_mailmap\t%aN\tauthor_email\t%ae\tauthor_email_mailmap\t%aE\tauthor_date\t%ad\tauthor_date_RFC2822\t%aD\tauthor_date_relative\t%ar\tauthor_date_unix_timestamp\t%at\tauthor_date_iso_8601\t%ai\tauthor_date_iso_8601_strict\t%aI\tcommitter_name\t%cn\tcommitter_name_mailmap\t%cN\tcommitter_email\t%ce\tcommitter_email_mailmap\t%cE\tcommitter_date\t%cd\tcommitter_date_RFC2822\t%cD\tcommitter_date_relative\t%cr\tcommitter_date_unix_timestamp\t%ct\tcommitter_date_iso_8601\t%ci\tcommitter_date_iso_8601_strict\t%cI\tref_names\t%d\tref_names_no_wrapping\t%D\tencoding\t%e\tsubject\t%s\tsubject_sanitized\t%f\tcommit_notes\t%N\tstats\t' |
           sed '/^[ \t]*$/d' |               # remove all newlines/line-breaks, including those with empty spaces
           tr '\n' '§' |                     # convert newlines/line-breaks to a character, so we can manipulate it without much trouble
           tr '\r' '§' |                     # convert carriage returns to a character, so we can manipulate it without much trouble
@@ -49,8 +49,7 @@ if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
               s/[)]\n\ncommits/)\
           commits/g
           }' |                              # some rogue mystical line-breaks need to go down to their knees and beg for mercy, which they're not getting
-          paste -d ' ' - - |                # collapse lines so that the `shortstat` is merged with the rest of the commit data, on a single line
-          tail -r                           # reverse the line order so that the older commit is listed first and the newest last
+          paste -d ' ' - -                  # collapse lines so that the `shortstat` is merged with the rest of the commit data, on a single line
       )
   done > gitlogg.tmp
   echo -e "${Gre}The file ${Blu}./gitlogg.tmp ${Gre}generated in${RCol}: ${SECONDS}s" &&
