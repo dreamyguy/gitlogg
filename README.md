@@ -18,6 +18,14 @@
 * It is hard to retrieve commits made on a specific but generic moment, like "11pm"; at the "27th minute" of an hour; on a "Sunday"; on "March"; on "GMT -5"; on the "53rd second of a minute".
 * Some commits don't have stats, and that can cause the structure of the output to break, making it harder to distribute it.
 
+#### Script execution feedback
+
+**Gitlogg** is not a very complex application, but I still made an effort to provide some feedback on what is happening under the hood. Below are some screenshots of dialogs one can expect to see while executing it:
+
+![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.2")
+
+![Error 001](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/error-001.png "'Error 001' message as on release v0.1.2")
+
 ## Requirements
 
 [NodeJS][2] and [BabelJS][3].
@@ -203,6 +211,7 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 #### Release History
 
+* 2016-05-21   [v0.1.2](https://github.com/dreamyguy/gitlogg/tree/v0.1.2)   Better error handling
 * 2016-05-21   [v0.1.1](https://github.com/dreamyguy/gitlogg/tree/v0.1.1)   The 'gitlogg' release, the node-based JSON generation
 * 2016-05-20   [v0.1.0](https://github.com/dreamyguy/gitlogg/tree/v0.1.0)   The 'git-log-to-json' release, now considered legacy
 
