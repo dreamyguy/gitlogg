@@ -1,4 +1,4 @@
-![Gitlogg](https://github.com/dreamyguy/gitlogg/blob/docs/gitlogg-icon-github.png "Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file")
+![Gitlogg](https://github.com/dreamyguy/gitlogg/blob/master/docs/gitlogg-icon-github.png "Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file")
 
 > _Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file._
 
