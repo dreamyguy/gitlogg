@@ -60,16 +60,16 @@ var output = fs.readFileSync('gitlogg.tmp', 'utf8')
     // vars that require manipulation
     var time_array =                     author_date.split(' '),             // Fri Jan 3 14:16:56 2014 +0100 => [Fri, Jan, 3, 14:16:56, 2014, +0100]
         time_array_clock =               time_array[3].split(':'),           // 14:16:56 => [14, 16, 56]
-        time_hour =                      time_array_clock[0],                // [14, 16, 56] => 14
-        time_minutes =                   time_array_clock[1],                // [14, 16, 56] => 16
-        time_seconds =                   time_array_clock[2],                // [14, 16, 56] => 56
+        time_hour =                      parseInt(time_array_clock[0], 10),  // [14, 16, 56] => 14
+        time_minutes =                   parseInt(time_array_clock[1], 10),  // [14, 16, 56] => 16
+        time_seconds =                   parseInt(time_array_clock[2], 10),  // [14, 16, 56] => 56
         time_gmt =                       time_array[5],                      // [Fri, Jan, 3, 14:16:56, 2014, +0100] => +0100
         date_array =                     author_date_iso_8601.split(' ')[0], // 2014-01-03 14:16:56 +0100 => 2014-01-03
         date_day_week =                  time_array[0],                      // [Fri, Jan, 3, 14:16:56, 2014, +0100] => Fri
         date_iso_8601 =                  date_array,                         // 2014-01-03
-        date_month_day =                 date_array.split('-')[2],           // 2014-01-03 => [2014, 01, 03] => 03
+        date_month_day =                 parseInt(date_array.split('-')[2], 10),  // 2014-01-03 => [2014, 01, 03] => 03
         date_month_name =                time_array[1],                      // [Fri, Jan, 3, 14:16:56, 2014, +0100] => Jan
-        date_month_number =              date_array.split('-')[1],           // 2014-01-03 => [2014, 01, 03] => 01
+        date_month_number =              parseInt(date_array.split('-')[1], 10),  // 2014-01-03 => [2014, 01, 03] => 01
         date_year =                      time_array[4],                      // [Fri, Jan, 3, 14:16:56, 2014, +0100] => 2014
         files_changed =                  changes(stats, 0),                  // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 9
         insertions =                     changes(stats, 1),                  // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 507
