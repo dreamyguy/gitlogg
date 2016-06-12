@@ -215,6 +215,7 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 #### Release History
 
+* 2016-06-12   [v0.1.5](https://github.com/dreamyguy/gitlogg/tree/v0.1.5)   Introduce logo, correct wrong reference to 'yourpath', output numbers instead of strings
 * 2016-05-23   [v0.1.4](https://github.com/dreamyguy/gitlogg/tree/v0.1.4)   Fix a bug that would break the output in some rare cases
 * 2016-05-21   [v0.1.3](https://github.com/dreamyguy/gitlogg/tree/v0.1.3)   Even better error handling
 * 2016-05-21   [v0.1.2](https://github.com/dreamyguy/gitlogg/tree/v0.1.2)   Better error handling
