@@ -50,8 +50,9 @@ if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
           commits/g
           }' |                              # some rogue mystical line-breaks need to go down to their knees and beg for mercy, which they're not getting
           paste -d ' ' - -                  # collapse lines so that the `shortstat` is merged with the rest of the commit data, on a single line
-      )
+      ) &
   done > gitlogg.tmp
+  wait
   echo -e "${Gre}The file ${Blu}./gitlogg.tmp ${Gre}generated in${RCol}: ${SECONDS}s" &&
   babel gitlogg-parse-json.js | node        # only parse JSON if we have a source to parse it from
 # if the path exists but is empty
