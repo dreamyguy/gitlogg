@@ -29,12 +29,33 @@ esac
 # 'thepath' sets the path to each repository under 'yourpath' (the trailing asterix [*/] represents all the repository folders).
 thepath="${yourpathSanitized}*/"
 
+# function to trim whitespace
+trim() {
+    local var="$*"
+    var="${var#'${var%%[![:space:]]*}'}"   # remove leading whitespace characters
+    var="${var%'${var##*[![:space:]]}'}"   # remove trailing whitespace characters
+    echo -n "$var"
+}
+
+# number of directories (repos) under 'thepath'
+DIRCOUNT="$(find $thepath -maxdepth 0 -type d | wc -l)"
+
+# trim whitespace from DIRCOUNT
+DIRNR="$(trim $DIRCOUNT)"
+
+# determine if we're dealing with a singular repo or multiple
+if [ "${DIRNR}" -gt "1" ]; then
+  reporef="all ${Red}${DIRNR}${Yel} repositories"
+elif [ "${DIRNR}" -eq "1" ]; then
+  reporef="the one repository"
+fi
+
 # start counting seconds elapsed
 SECONDS=0
 
 # if the path exists and is not empty
 if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
-  echo -e "${Yel}Generating ${Pur}git log ${Yel}for all repositories located at ${Red}'${thepath}'${Yel}. ${Blu}This might take a while!${RCol}"
+  echo -e "${Yel}Generating ${Pur}git log ${Yel}for ${reporef} located at ${Red}'${thepath}'${Yel}. ${Blu}This might take a while!${RCol}"
   for dir in $thepath
   do
       (cd $dir &&
