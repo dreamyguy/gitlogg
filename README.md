@@ -22,16 +22,26 @@
 
 **Gitlogg** is not a very complex application, but I still made an effort to provide some feedback on what is happening under the hood. Below are some screenshots of dialogs one can expect to see while executing it:
 
-![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.3")
-> **Success!** `JSON` parsed, based on **7** different repositories with a total of **7375** commits.
-
 ![Error 001](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/error-001.png "'Error 001' message as on release v0.1.3")
 > **Øh nøes!** The path to the folder containing all repositories *does not exist!*
 
 ![Error 002](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/error-002.png "'Error 002' message as on release v0.1.3")
 > **Øh nøes!** The path to the folder containing all repositories *exists, but is empty!*
 
-## Requirements
+![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.3")
+> **Success!** `JSON` parsed, based on **9** different repositories with a total of **25,537** commits.
+
+Note that I've included two huge repos (react & react-native, that have 7,813 & 10,065 commits respectively at the time of this writting) for the sake of demonstration. The resulting parsed `JSON` file has 715,040 lines. All that done in less than 25 seconds.
+
+*I have successfully compiled **`470`** repositories at once* (all repos under the organization I work for). Then I got these specs:
+
+* `gitlogg.tmp` generated in `154s` (`~2.57mins`)
+* `JSON` output parsed in `2792ms`
+* `JSON` file size: `121,5MB`
+* Commits processed: `118,117`
+* Parsed `JSON` file, lines: `3,307,280`
+
+## Requirementss
 
 [NodeJS][2] and [BabelJS][3].
 
@@ -47,6 +57,7 @@ The output will look like this (first commit for **Font Awesome**):
       "commits": [
         {
           "repository": "Font-Awesome",
+          "commit_nr": 1
           "commit_hash": "7ed221e28df1745a20009329033ac690ef000575",
           "author_name": "Dave Gandy",
           "author_email": "dave@davegandy.com",
@@ -84,6 +95,7 @@ The output will look like this (first commit for **Font Awesome**):
 Note that many `git log` fields were not printed here, but that's only because I've commented out some of them in the **gitlogg-parse-json.js** script. All the fields below are available. Fields marked with a `*` are either non-standard or not available as placeholders on `--pretty=format:<string>`:
 
     * repository
+    * commit_nr
       commit_hash
       commit_hash_abbreviated
       tree_hash
