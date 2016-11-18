@@ -24,7 +24,7 @@ var output = fs.readFileSync('gitlogg.tmp', 'utf8')
 
     // vars based on sequential values ( sanitise " to ' on fields that accept user input )
     var repository =                     item[3],                            // color-consolidator
-        commit_nr =                      item[0],                            // 3
+        commit_nr =                      parseInt(item[0], 10),              // 3
         commit_hash =                    item[5],                            // 5109ad5a394a4873290ff7f7a38b7ca2e1b3b8e1
         commit_hash_abbreviated =        item[7],                            // 5109ad5
         tree_hash =                      item[9],                            // a1606ea8d6e24e1c832b52cb9c04ae1df2242ed4
