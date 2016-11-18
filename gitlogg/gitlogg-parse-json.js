@@ -23,40 +23,41 @@ var output = fs.readFileSync('gitlogg.tmp', 'utf8')
   .reduce((commits, item) => {
 
     // vars based on sequential values ( sanitise " to ' on fields that accept user input )
-    var repository =                     item[2],                            // color-consolidator
-        commit_hash =                    item[4],                            // 5109ad5a394a4873290ff7f7a38b7ca2e1b3b8e1
-        commit_hash_abbreviated =        item[6],                            // 5109ad5
-        tree_hash =                      item[8],                            // a1606ea8d6e24e1c832b52cb9c04ae1df2242ed4
-        tree_hash_abbreviated =          item[10],                           // a1606ea
-        parent_hashes =                  item[12],                           // 7082fa621bf93503fe173d06ada3c6111054a62b
-        parent_hashes_abbreviated =      item[14],                           // 7082fa6
-        author_name =                    item[16].replace(/"/g, "'"),        // Wallace Sidhrée
-        author_name_mailmap =            item[18],                           // Wallace Sidhrée
-        author_email =                   item[20],                           // i@dreamyguy.com
-        author_email_mailmap =           item[22],                           // i@dreamyguy.com
-        author_date =                    item[24],                           // Fri Jan 3 14:16:56 2014 +0100
-        author_date_RFC2822 =            item[26],                           // Fri, 3 Jan 2014 14:16:56 +0100
-        author_date_relative =           item[28],                           // 2 years, 5 months ago
-        author_date_unix_timestamp =     item[30],                           // 1388755016
-        author_date_iso_8601 =           item[32],                           // 2014-01-03 14:16:56 +0100
-        author_date_iso_8601_strict =    item[34],                           // 2014-01-03T14:16:56+01:00
-        committer_name =                 item[36].replace(/"/g, "'"),        // Wallace Sidhrée
-        committer_name_mailmap =         item[38],                           // Wallace Sidhrée
-        committer_email =                item[40],                           // i@dreamyguy.com
-        committer_email_mailmap =        item[42],                           // i@dreamyguy.com
-        committer_date =                 item[44],                           // Fri Jan 3 14:16:56 2014 +0100
-        committer_date_RFC2822 =         item[46],                           // Fri, 3 Jan 2014 14:16:56 +0100
-        committer_date_relative =        item[48],                           // 2 years, 5 months ago
-        committer_date_unix_timestamp =  item[50],                           // 1388755016
-        committer_date_iso_8601 =        item[52],                           // 2014-01-03 14:16:56 +0100
-        committer_date_iso_8601_strict = item[54],                           // 2014-01-03T14:16:56+01:00
-        ref_names =                      item[56].replace(/"/g, "'"),        // ""
-        ref_names_no_wrapping =          item[58].replace(/"/g, "'"),        // ""
-        encoding =                       item[60],                           // ""
-        subject =                        item[62].replace(/"/g, "'"),        // Upgrade FontAwesome from 3.2.1 to 4.0.3"
-        subject_sanitized =              item[64],                           // Upgrade-FontAwesome-from-3.2.1-to-4.0.3"
-        commit_notes =                   item[66].replace(/"/g, "'"),        // ""
-        stats =                          item[68].slice(1);                  // ` 9 files changed, 507 insertions(+), 2102 deletions(-)`
+    var repository =                     item[3],                            // color-consolidator
+        commit_nr =                      item[0],                            // 3
+        commit_hash =                    item[5],                            // 5109ad5a394a4873290ff7f7a38b7ca2e1b3b8e1
+        commit_hash_abbreviated =        item[7],                            // 5109ad5
+        tree_hash =                      item[9],                            // a1606ea8d6e24e1c832b52cb9c04ae1df2242ed4
+        tree_hash_abbreviated =          item[11],                           // a1606ea
+        parent_hashes =                  item[13],                           // 7082fa621bf93503fe173d06ada3c6111054a62b
+        parent_hashes_abbreviated =      item[15],                           // 7082fa6
+        author_name =                    item[17].replace(/"/g, "'"),        // Wallace Sidhrée
+        author_name_mailmap =            item[19],                           // Wallace Sidhrée
+        author_email =                   item[21],                           // i@dreamyguy.com
+        author_email_mailmap =           item[23],                           // i@dreamyguy.com
+        author_date =                    item[25],                           // Fri Jan 3 14:16:56 2014 +0100
+        author_date_RFC2822 =            item[27],                           // Fri, 3 Jan 2014 14:16:56 +0100
+        author_date_relative =           item[29],                           // 2 years, 5 months ago
+        author_date_unix_timestamp =     item[31],                           // 1388755016
+        author_date_iso_8601 =           item[33],                           // 2014-01-03 14:16:56 +0100
+        author_date_iso_8601_strict =    item[35],                           // 2014-01-03T14:16:56+01:00
+        committer_name =                 item[37].replace(/"/g, "'"),        // Wallace Sidhrée
+        committer_name_mailmap =         item[39],                           // Wallace Sidhrée
+        committer_email =                item[41],                           // i@dreamyguy.com
+        committer_email_mailmap =        item[43],                           // i@dreamyguy.com
+        committer_date =                 item[45],                           // Fri Jan 3 14:16:56 2014 +0100
+        committer_date_RFC2822 =         item[47],                           // Fri, 3 Jan 2014 14:16:56 +0100
+        committer_date_relative =        item[49],                           // 2 years, 5 months ago
+        committer_date_unix_timestamp =  item[51],                           // 1388755016
+        committer_date_iso_8601 =        item[53],                           // 2014-01-03 14:16:56 +0100
+        committer_date_iso_8601_strict = item[55],                           // 2014-01-03T14:16:56+01:00
+        ref_names =                      item[57].replace(/"/g, "'"),        // ""
+        ref_names_no_wrapping =          item[59].replace(/"/g, "'"),        // ""
+        encoding =                       item[61],                           // ""
+        subject =                        item[63].replace(/"/g, "'"),        // Upgrade FontAwesome from 3.2.1 to 4.0.3"
+        subject_sanitized =              item[65],                           // Upgrade-FontAwesome-from-3.2.1-to-4.0.3"
+        commit_notes =                   item[67].replace(/"/g, "'"),        // ""
+        stats =                          item[69].slice(1);                  // ` 9 files changed, 507 insertions(+), 2102 deletions(-)`
     // vars that require manipulation
     var time_array =                     author_date.split(' '),             // Fri Jan 3 14:16:56 2014 +0100 => [Fri, Jan, 3, 14:16:56, 2014, +0100]
         time_array_clock =               time_array[3].split(':'),           // 14:16:56 => [14, 16, 56]
@@ -76,9 +77,10 @@ var output = fs.readFileSync('gitlogg.tmp', 'utf8')
         deletions =                      changes(stats, 2),                  // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 2102
         impact =                         (insertions - deletions);           // 507 - 2102 => -1595
 
-    commits[item[0]] = commits[item[0]] || [];
-    commits[item[0]].push({
+    commits[item[1]] = commits[item[1]] || [];
+    commits[item[1]].push({
       repository: repository,
+      commit_nr: commit_nr,
       commit_hash: commit_hash,
       // commit_hash_abbreviated: commit_hash_abbreviated,
       // tree_hash: tree_hash,

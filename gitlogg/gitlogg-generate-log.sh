@@ -71,7 +71,9 @@ if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
               s/[)]\n\ncommits/)\
           commits/g
           }' |                              # some rogue mystical line-breaks need to go down to their knees and beg for mercy, which they're not getting
-          paste -d ' ' - -                  # collapse lines so that the `shortstat` is merged with the rest of the commit data, on a single line
+          paste -d ' ' - - |                # collapse lines so that the `shortstat` is merged with the rest of the commit data, on a single line
+          awk '{print NR"\\t",$0}' |        # print line number in front of each line, along with the `\t` delimiter
+          sed 's/\\t\ commits\\trepo/\\t\commits\\trepo/g' # get rid of the one space that shouldn't be there
       )
   done > gitlogg.tmp
   echo -e "${Gre}The file ${Blu}./gitlogg.tmp ${Gre}generated in${RCol}: ${SECONDS}s" &&
