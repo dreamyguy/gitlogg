@@ -57,7 +57,7 @@ The output will look like this (first commit for **Font Awesome**):
       "commits": [
         {
           "repository": "Font-Awesome",
-          "commit_nr": 1
+          "commit_nr": 1,
           "commit_hash": "7ed221e28df1745a20009329033ac690ef000575",
           "author_name": "Dave Gandy",
           "author_email": "dave@davegandy.com",
