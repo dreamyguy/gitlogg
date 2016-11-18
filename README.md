@@ -31,9 +31,9 @@
 ![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.3")
 > **Success!** `JSON` parsed, based on **9** different repositories with a total of **25,537** commits.
 
-Note that I've included two huge repos (react & react-native, that have 7,813 & 10,065 commits respectively at the time of this writting) for the sake of demonstration. The resulting parsed `JSON` file has 715,040 lines. All that done in less than 25 seconds.
+Note that I've included two huge repos _(*react* & *react-native*, that have 7,813 & 10,065 commits respectively at the time of this writting)_ for the sake of demonstration. The resulting parsed `JSON` file has 715,040 lines. All that done in less than 25 seconds.
 
-*I have successfully compiled **`470`** repositories at once* (all repos under the organization I work for). Then I got these specs:
+_I have successfully compiled **`470`** repositories at once_ (all repos under the organization I work for). Then I got these specs:
 
 * `gitlogg.tmp` generated in `154s` (`~2.57mins`)
 * `JSON` output parsed in `2792ms`
