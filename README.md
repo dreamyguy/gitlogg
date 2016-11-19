@@ -227,6 +227,11 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 #### Release History
 
+* 2016-11-19   [v0.1.6](https://github.com/dreamyguy/gitlogg/tree/v0.1.6)
+  * Introduce `commit_nr`, a commit count within each repo
+  * Show how many repos are about to be processed on console
+  * Show what repo is being processed on console
+  * Replace carriage return with space
 * 2016-06-12   [v0.1.5](https://github.com/dreamyguy/gitlogg/tree/v0.1.5)   Introduce logo, correct wrong reference to 'yourpath', output numbers instead of strings
 * 2016-05-23   [v0.1.4](https://github.com/dreamyguy/gitlogg/tree/v0.1.4)   Fix a bug that would break the output in some rare cases
 * 2016-05-21   [v0.1.3](https://github.com/dreamyguy/gitlogg/tree/v0.1.3)   Even better error handling

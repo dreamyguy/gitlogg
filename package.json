@@ -1,6 +1,6 @@
 {
   "name": "gitlogg",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file",
   "keywords": [
     "gitlog",
