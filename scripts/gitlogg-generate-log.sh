@@ -1,40 +1,32 @@
-#!/bin/bash
+source "$__dirname/colors.sh"
 
-my_dir="$(dirname "$0")"
-cd $my_dir
+runJs() {
+  local script="$1"
+  shift
+  if [[ "$GITLOGG_DEV" = "" ]]; then
+    # Run precompiled .compiled.js
+    node "${script%.js}.compiled.js" "$@"
+  else
+    # Development: transpile .js at runtime
+    babel "$script" | node "$@"
+  fi
+}
 
-source "colors.sh"
-
-cd ..
-
-# define the absolute path to the directory that contains all your repositories.
-yourpath='./_repos/'
-
-# define temporary 'git log' output file that will be parsed to 'json'
-tempOutputFile='_tmp/gitlogg.tmp'
-
-# ensure file exists
-mkdir -p ${tempOutputFile%%.*}
-touch $tempOutputFile
-
-# name and path to this very script, for output message purposes
-thisFile='./scripts/gitlogg-generate-log.sh'
-
-workerFile='./scripts/output-intermediate-gitlog.sh'
+workerFile="$__dirname/output-intermediate-gitlog.sh"
 
 # define path to 'json' parser
-jsonParser='./scripts/gitlogg-parse-json.js'
-
+jsonParser="$__dirname/gitlogg-parse-json.js"
 
 # Display system usage and exit
 usage()
 {
+  local exitCode="$1"
   cat <<\USAGE_EOF
-usage: gitlogg-generate-log.sh [options]
+usage: gitlogg [options] [repository ...]
 The following options are available
  -n X: Run X instances of gitlogg concurrently
 USAGE_EOF
-  exit 2
+  exit $exitCode
 }
 
 test "$1" = "--help" && usage
@@ -46,57 +38,26 @@ test $NUM_THREADS -lt 1 && NUM_THREADS=1
 test "$1" = "-n" && NUM_THREADS=$2
 echo -e "${Blu}Info: Calculating in $NUM_THREADS thread(s)${RCol}"
 
-# ensure there's always a '/' at the end of the 'yourpath' variable, since its value can be changed by user.
-case "$yourpath" in
-  */)
-    yourpathSanitized="${yourpath}"   # no changes if there's already a slash at the end - syntax sugar
-    ;;
-  *)
-    yourpathSanitized="${yourpath}/"  # add a slash at the end if there isn't already one
-    ;;
-esac
+# Each positional argument is a path to a git repository
+repositories=("$@")
 
-# 'thepath' sets the path to each repository under 'yourpath' (the trailing asterix [*/] represents all the repository folders).
-thepath="${yourpathSanitized}*/"
-
-
-# function to trim whitespace
-trim() {
-    local var="$*"
-    var="${var#'${var%%[![:space:]]*}'}"   # remove leading whitespace characters
-    var="${var%'${var##*[![:space:]]}'}"   # remove trailing whitespace characters
-    echo -n "$var"
-}
-
-# number of directories (repos) under 'thepath'
-DIRCOUNT="$(find $thepath -maxdepth 0 -type d | wc -l)"
-
-# trim whitespace from DIRCOUNT
-DIRNR="$(trim $DIRCOUNT)"
+# number of directories (repos)
+DIRCOUNT="${#repositories[@]}"
 
 # determine if we're dealing with a singular repo or multiple
-if [ "${DIRNR}" -gt "1" ]; then
-  reporef="all ${Red}${DIRNR}${Yel} repositories"
-elif [ "${DIRNR}" -eq "1" ]; then
-  reporef="the one repository"
+if [ "${DIRCOUNT}" -gt "1" ]; then
+  reporef="${Red}${DIRCOUNT}${Yel} repositories"
+elif [ "${DIRCOUNT}" -eq "1" ]; then
+  reporef="${Red}${DIRCOUNT}${Yel} repository"
+elif [ "${DIRCOUNT}" -eq "0" ]; then
+  echo -e "${Whi}[ERROR 003]: ${Yel}No repositories specified${RCol}" 1>&2
+  usage 1 1>&2
 fi
 
 # start counting seconds elapsed
 SECONDS=0
 
-# if the path exists and is not empty
-if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
-  echo -e "${Yel}Generating ${Pur}git log ${Yel}for ${reporef} located at ${Red}'${thepath}'${Yel}. ${Blu}This might take a while!${RCol}"
-  dirs=$(ls -d $thepath)
-  echo $dirs | xargs -n 1 -P $NUM_THREADS $workerFile > ${tempOutputFile}
-  echo -e "${Gre}The file ${Blu}${tempOutputFile} ${Gre}generated in${RCol}: ${SECONDS}s" &&
-  babel "${jsonParser}" | node              # only parse JSON if we have a source to parse it from
-# if the path exists but is empty
-elif [ -d "${yourpathSanitized}" ] && [ ! "$(ls $yourpathSanitized)" ]; then
-  echo -e "${Whi}[ERROR 002]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'${thisFile}' ${UYel}exists, but is empty!${RCol}"
-  echo -e "${Yel}Please move the repos to ${Red}'${yourpath}'${Yel} or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"
-# if the path does not exists
-elif [ ! -d "${yourpathSanitized}" ]; then
-  echo -e "${Whi}[ERROR 001]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'${thisFile}' ${UYel}does not exist!${RCol}"
-  echo -e "${Yel}Please create ${Red}'${yourpath}'${Yel} and move the repos under it, or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"
-fi
+echo -e "${Yel}Generating ${Pur}git log ${Yel}for ${reporef} located at ${Red}'${thepath}'${Yel}. ${Blu}This might take a while!${RCol}"
+echo "${repositories[@]}" \
+| xargs -n 1 -P $NUM_THREADS "$workerFile" \
+| runJs "${jsonParser}" 3<&0 4>"gitlogg.json"             # only parse JSON if we have a source to parse it from

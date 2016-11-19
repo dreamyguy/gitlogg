@@ -1,5 +1,3 @@
-#!/usr/bin/bash
-
 # Extracted command line colors for nicer output
 
 # Text Reset

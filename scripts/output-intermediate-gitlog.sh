@@ -1,18 +1,15 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Returns an intermediate representation of git log with the given repository to stdout
 
-my_dir="$(dirname "$0")"
-cd $my_dir
+__dirname="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-source "colors.sh"
-
-cd ..
+source "$__dirname/colors.sh"
 
 test "$1" || exit 1
-dir=$1
+dir="$1"
 
-cd $dir &&
+cd "$dir" &&
         echo -e "${Whi}Outputting ${Pur}${PWD##*/}${RCol}" >&2 &&
         git log --all --no-merges --shortstat --reverse --pretty=format:'commits\trepository\t'"${PWD##*/}"'\tcommit_hash\t%H\tcommit_hash_abbreviated\t%h\ttree_hash\t%T\ttree_hash_abbreviated\t%t\tparent_hashes\t%P\tparent_hashes_abbreviated\t%p\tauthor_name\t%an\tauthor_name_mailmap\t%aN\tauthor_email\t%ae\tauthor_email_mailmap\t%aE\tauthor_date\t%ad\tauthor_date_RFC2822\t%aD\tauthor_date_relative\t%ar\tauthor_date_unix_timestamp\t%at\tauthor_date_iso_8601\t%ai\tauthor_date_iso_8601_strict\t%aI\tcommitter_name\t%cn\tcommitter_name_mailmap\t%cN\tcommitter_email\t%ce\tcommitter_email_mailmap\t%cE\tcommitter_date\t%cd\tcommitter_date_RFC2822\t%cD\tcommitter_date_relative\t%cr\tcommitter_date_unix_timestamp\t%ct\tcommitter_date_iso_8601\t%ci\tcommitter_date_iso_8601_strict\t%cI\tref_names\t%d\tref_names_no_wrapping\t%D\tencoding\t%e\tsubject\t%s\tsubject_sanitized\t%f\tcommit_notes\t%N\tstats\t' |
           sed '/^[ \t]*$/d' |               # remove all newlines/line-breaks, including those with empty spaces

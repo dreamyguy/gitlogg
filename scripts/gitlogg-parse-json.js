@@ -1,8 +1,13 @@
 var fs = require('fs'),
     path = require('path'),
     chalk = require('chalk'),
-    output_file_temp = '_tmp/gitlogg.tmp',
-    output_file = '_output/gitlogg.json';
+    // Read and write from file descriptors.  Bash script will hook these up.
+    input_file = 3,
+    output_file = 4;
+
+try {
+  require('source-map-support').install();
+} catch(e) {}
 
 console.log(chalk.yellow('Generating JSON output...'));
 
@@ -17,7 +22,7 @@ var changes = function(data, index) {
 
 console.time(chalk.green('JSON output generated in'));
 
-var output = fs.readFileSync(output_file_temp, 'utf8')
+var output = fs.readFileSync(input_file, 'utf8')
   .trim()
   .split('\n')
   .map(line => line.split('\\t'))
@@ -137,11 +142,4 @@ console.timeEnd(chalk.green('JSON output generated in'));
 
 console.log(chalk.yellow('Writing output to file...'));
 
-// console.log('output', JSON.stringify(output, null, 2)) // comment this out to see the output on the terminal as well
-
-fs.writeFile(output_file, JSON.stringify(output, null, 2), function(err) {
-    if(err) {
-        return console.log(chalk.red(err, 'Something went wrong, the file could not be written / saved'));
-    }
-    console.log(chalk.green('The file ' + chalk.blue(output_file) + ' was saved! '));
-});
+fs.writeFileSync(output_file, JSON.stringify(output, null, 2));
