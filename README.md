@@ -182,6 +182,8 @@ To generate the `JSON` file based on repositories in any other location, you'll 
         # define the absolute path to the directory that contains all your repositories
         yourpath=/absolute/system/path/to/directory/that/contains/all/your/repositories/
 
+_**Tip:** drag the folder that contain your repositories to a terminal window, and you'll get the absolute system path to that folder._
+
 2. Granted that you are within the `gitlogg` folder (this repo's root), run:
 
         $ npm run gitlogg
@@ -200,11 +202,11 @@ Two files were necessary because of the nature of the script, that loops through
 
 I've created error messages with suggested solutions, to help you get past the most common issues.
 
-However, `git log`'s output can break while it's being processed. That's most certainly caused by fields that allow for user input, like _commit messages_. These fields may contain characters that crash with those reserved for the generation of `gitlogg.tmp`, namely `\n` and `\r`.
+However, `git log`'s output can break while it's being processed. That's most certainly caused by fields that allow user input, like _commit messages_. These fields may contain characters (like `\r`) that crash with those reserved for the generation of `gitlogg.tmp`, namely `\n`.
 
-Efforts have been made to prevent it from happening, but it might still happen in some edge cases. If it does, have a look at the generated `gitlogg.tmp` and see if the expected structure (which is obvious) breaks. Once you have identified the line, have a closer look at the commit and look for an unusual character.
+Efforts have been made to mitigate errors by sanitizing characters that have caused errors before, but it might still happen in some edge cases. If it does happen, have a look at the generated `gitlogg.tmp` and see if the expected structure (which is obvious) breaks. Once you have identified the line, have a closer look at the commit and look for an unusual character.
 
-Post an issue with a link to a _gist_ containing your broken `gitlogg.tmp` and I will try to reproduce the problem.
+Post an issue with a link to a _gist_ containing your broken `gitlogg.tmp` and I will try to reproduce the error.
 
 #### Documentation
 
