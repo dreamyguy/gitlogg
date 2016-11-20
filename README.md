@@ -233,22 +233,22 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 #### Release History
 
-* 2016-11-19   [v0.1.6](https://github.com/dreamyguy/gitlogg/tree/v0.1.6)
+* 2016-11-19   [v0.1.6](https://github.com/dreamyguy/gitlogg/tree/v0.1.6) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.5...v0.1.6)
   * Introduce `commit_nr`, a commit count within each repo
   * Show how many repos are about to be processed on console
   * Show what repo is being processed on console
   * Replace carriage return with space
-* 2016-06-12   [v0.1.5](https://github.com/dreamyguy/gitlogg/tree/v0.1.5)
+* 2016-06-12   [v0.1.5](https://github.com/dreamyguy/gitlogg/tree/v0.1.5) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.4...v0.1.5)
   * Introduce logo
   * Correct wrong reference to 'yourpath'
   * Output numbers instead of strings
-* 2016-05-23   [v0.1.4](https://github.com/dreamyguy/gitlogg/tree/v0.1.4)
+* 2016-05-23   [v0.1.4](https://github.com/dreamyguy/gitlogg/tree/v0.1.4) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.3...v0.1.4)
   * Fix a bug that would break the output in some rare cases
-* 2016-05-21   [v0.1.3](https://github.com/dreamyguy/gitlogg/tree/v0.1.3)
+* 2016-05-21   [v0.1.3](https://github.com/dreamyguy/gitlogg/tree/v0.1.3) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.2...v0.1.3)
   * Even better error handling
-* 2016-05-21   [v0.1.2](https://github.com/dreamyguy/gitlogg/tree/v0.1.2)
+* 2016-05-21   [v0.1.2](https://github.com/dreamyguy/gitlogg/tree/v0.1.2) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.1...v0.1.2)
   * Better error handling
-* 2016-05-21   [v0.1.1](https://github.com/dreamyguy/gitlogg/tree/v0.1.1)
+* 2016-05-21   [v0.1.1](https://github.com/dreamyguy/gitlogg/tree/v0.1.1) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.0...v0.1.1)
   * The 'gitlogg' release, the node-based JSON generation
 * 2016-05-20   [v0.1.0](https://github.com/dreamyguy/gitlogg/tree/v0.1.0)
   * The 'git-log-to-json' release, now considered legacy
