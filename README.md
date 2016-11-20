@@ -233,6 +233,16 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 #### Release History
 
+* 2016-11-21   [v0.1.7](https://github.com/dreamyguy/gitlogg/tree/v0.1.7) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.6...v0.1.7)
+  * Better readability for 'Release History'
+  * Correct url to logo, so it also renders outside Github
+  * Rename sub-folder 'gitlogg' to 'scripts' to avoid confusion
+  * Simplify initial setup and running of 'gitlogg'
+  * Set vars instead of hardcoding values
+  * Separate scripts from output files
+  * Introduce 'Debugging' as a 'Further Notes' item
+  * Tip on how to get the absolute system path to a directory
+  * Introduce 'View Changes' links under 'Release History'
 * 2016-11-19   [v0.1.6](https://github.com/dreamyguy/gitlogg/tree/v0.1.6) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.5...v0.1.6)
   * Introduce `commit_nr`, a commit count within each repo
   * Show how many repos are about to be processed on console
