@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+# define the absolute path to the directory that contains all your repositories.
+yourpath='./_repos/'
+
+# define temporary 'git log' output file that will be parsed to 'json'
+tempOutputFile='_tmp/gitlogg.tmp'
+
+# name and path to this very script, for output message purposes
+thisFile='./scripts/gitlogg-generate-log.sh'
+
+# define path to 'json' parser
+jsonParser='./scripts/gitlogg-parse-json.js'
+
 # Text Reset
 RCol='\033[0m'
 
@@ -12,9 +24,6 @@ Blu='\033[0;34m';     BBlu='\033[1;34m';    UBlu='\033[4;34m';    IBlu='\033[0;9
 Pur='\033[0;35m';     BPur='\033[1;35m';    UPur='\033[4;35m';    IPur='\033[0;95m';    BIPur='\033[1;95m';   On_Pur='\033[45m';    On_IPur='\033[0;105m';
 Cya='\033[0;36m';     BCya='\033[1;36m';    UCya='\033[4;36m';    ICya='\033[0;96m';    BICya='\033[1;96m';   On_Cya='\033[46m';    On_ICya='\033[0;106m';
 Whi='\033[0;37m';     BWhi='\033[1;37m';    UWhi='\033[4;37m';    IWhi='\033[0;97m';    BIWhi='\033[1;97m';   On_Whi='\033[47m';    On_IWhi='\033[0;107m';
-
-# define the absolute path to the directory that contains all your repositories.
-yourpath=../repos/
 
 # ensure there's always a '/' at the end of the 'yourpath' variable, since its value can be changed by user.
 case "$yourpath" in
@@ -75,15 +84,15 @@ if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
           awk '{print NR"\\t",$0}' |        # print line number in front of each line, along with the `\t` delimiter
           sed 's/\\t\ commits\\trepo/\\t\commits\\trepo/g' # get rid of the one space that shouldn't be there
       )
-  done > gitlogg.tmp
-  echo -e "${Gre}The file ${Blu}./gitlogg.tmp ${Gre}generated in${RCol}: ${SECONDS}s" &&
-  babel gitlogg-parse-json.js | node        # only parse JSON if we have a source to parse it from
+  done > "${tempOutputFile}"
+  echo -e "${Gre}The file ${Blu}${tempOutputFile} ${Gre}generated in${RCol}: ${SECONDS}s" &&
+  babel "${jsonParser}" | node              # only parse JSON if we have a source to parse it from
 # if the path exists but is empty
 elif [ -d "${yourpathSanitized}" ] && [ ! "$(ls $yourpathSanitized)" ]; then
-  echo -e "${Whi}[ERROR 002]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'gitlogg-generate-log.sh' ${UYel}exists, but is empty!${RCol}"
+  echo -e "${Whi}[ERROR 002]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'${thisFile}' ${UYel}exists, but is empty!${RCol}"
   echo -e "${Yel}Please move the repos to ${Red}'${yourpath}'${Yel} or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"
 # if the path does not exists
 elif [ ! -d "${yourpathSanitized}" ]; then
-  echo -e "${Whi}[ERROR 001]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'gitlogg-generate-log.sh' ${UYel}does not exist!${RCol}"
+  echo -e "${Whi}[ERROR 001]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'${thisFile}' ${UYel}does not exist!${RCol}"
   echo -e "${Yel}Please create ${Red}'${yourpath}'${Yel} and move the repos under it, or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"
 fi

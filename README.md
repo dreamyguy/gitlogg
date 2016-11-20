@@ -28,7 +28,7 @@
 ![Error 002](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/error-002.png "'Error 002' message as on release v0.1.3")
 > **Øh nøes!** The path to the folder containing all repositories *exists, but is empty!*
 
-![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.3")
+![Success!](https://raw.githubusercontent.com/dreamyguy/gitlogg/master/docs/success.png "Success messages as on release v0.1.6")
 > **Success!** `JSON` parsed, based on **9** different repositories with a total of **25,537** commits.
 
 Note that I've included two huge repos _(*react* & *react-native*, that have 7,813 & 10,065 commits respectively at the time of this writting)_ for the sake of demonstration. The resulting parsed `JSON` file has 715,040 lines. All that done in less than 25 seconds.
@@ -41,13 +41,17 @@ _I have successfully compiled **`470`** repositories at once_ (all repos under t
 * Commits processed: `118,117`
 * Parsed `JSON` file, lines: `3,307,280`
 
-## Requirementss
+## Getting started
 
-[NodeJS][2] and [BabelJS][3].
+**Gitlogg** requires [NodeJS][2] and [BabelJS][3].
 
 1. Install `NodeJS` (visit [their page][2] to find the right install for your system).
-2. Install `BabelJS` globally by running `npm install babel-cli -g`. One can also choose to install it locally by simply running `npm install babel-cli`, but in most cases it is smarter to install `-cli` packages globally.
-3. Run `npm install` to install the remaining dependencies.
+2. Run `npm run setup`. That will:
+
+* Install `BabelJS` globally by running `npm install babel-cli -g`.
+* Install all the local dependencies, through `npm install`.
+* Create the directory in which all repos to be parsed to `JSON` will be at (only on **Simple Mode**).
+* Create the directories expected by the scripts that output files.
 
 ## The `JSON` output
 
@@ -152,55 +156,55 @@ There are two modes and they are basically the same, except that the **Simple Mo
 
 To simplify the generation process to a point that no configuration is required, follow this directory structure:
 
-    .
-    ├── gitlogg
+    gitlogg/          <== this repository's root
+    ├── scripts/
     │   ├── gitlogg-generate-log.sh
     │   ├── gitlogg-parse-json.js
     │   └── gitlogg.sh
-    └── repos         <== place/keep your repositories under the folder "repos"
+    └── _repos/       <== copy/place/keep your repositories under the folder "_repos/"
         ├── repo1
         ├── repo2
         ├── repo3
         └── repo4
 
-1. Copy the `gitlogg` folder and all its content to the indicated relative path to your local repositories (shown above).
+1. Copy the all the repositories you wish to parse to `JSON` to the `_repos/` folder, as shown above.
 
-2. Navigate to the `gitlogg` directory:
+2. Granted that you are within the `gitlogg` folder (this repo's root), run:
 
-        $ cd path/to/the/folder/in/your/system/gitlogg/
-
-3. Run it:
-
-        $ ./gitlogg.sh
+        $ npm run gitlogg
 
 #### Advanced Mode
 
 To generate the `JSON` file based on repositories in any other location, you'll have to define the path to the folder that contains all your repositories.
 
-1. Copy the `gitlogg` folder and all its content to a folder of your preference, it really doesn't matter where it is.
-
-2. Open [`gitlogg-generate-log.sh`](https://github.com/dreamyguy/gitlogg/blob/master/gitlogg/gitlogg-generate-log.sh#L17) with an editor of your choice and edit the `yourpath` variable:
+1. Open [`gitlogg-generate-log.sh`](https://github.com/dreamyguy/gitlogg/blob/master/scripts/gitlogg-generate-log.sh#L4) with an editor of your choice and edit the `yourpath` variable:
 
         # define the absolute path to the directory that contains all your repositories
-        yourpath=~/path/to/directory/that/contains/all/your/repositories/
+        yourpath=/absolute/system/path/to/directory/that/contains/all/your/repositories/
 
-3. Navigate to the `gitlogg` directory:
+2. Granted that you are within the `gitlogg` folder (this repo's root), run:
 
-        $ cd path/to/the/folder/in/your/system/gitlogg/
-
-4. Run it:
-
-        $ ./gitlogg.sh
+        $ npm run gitlogg
 
 ## The parsed `JSON` file
 
-> _Two files will be generated at the `gitlogg` folder: `gitlogg.tmp` and `gitlogg.json`._
+> _Two files will be generated: `_tmp/gitlogg.tmp` and `_output/gitlogg.json`._
 
 Two files were necessary because of the nature of the script, that loops through all subdirectories and outputs the `git log` for all valid `git` repositories. Once that loop is done, a valid `JSON` file (`gitlogg.json`) is generated out of `gitlogg.tmp`.
 
 `gitlogg.tmp` is just a temporary file from which `gitlogg.json` bases itself on. In case the parsing fails `gitlogg.tmp` can come in handy for debugging.
 
 ## Further Notes
+
+#### Debugging
+
+I've created error messages with suggested solutions, to help you get past the most common issues.
+
+However, `git log`'s output can break while it's being processed. That's most certainly caused by fields that allow for user input, like _commit messages_. These fields may contain characters that crash with those reserved for the generation of `gitlogg.tmp`, namely `\n` and `\r`.
+
+Efforts have been made to prevent it from happening, but it might still happen in some edge cases. If it does, have a look at the generated `gitlogg.tmp` and see if the expected structure (which is obvious) breaks. Once you have identified the line, have a closer look at the commit and look for an unusual character.
+
+Post an issue with a link to a _gist_ containing your broken `gitlogg.tmp` and I will try to reproduce the problem.
 
 #### Documentation
 

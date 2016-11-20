@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-bash gitlogg-generate-log.sh
+bash ./scripts/gitlogg-generate-log.sh

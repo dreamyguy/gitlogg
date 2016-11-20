@@ -26,7 +26,11 @@
     "babel-preset-es2015": "^6.9.0",
     "chalk": "^1.1.3"
   },
+  "scripts": {
+    "setup": "npm install babel-cli -g && npm install && mkdir -p _output && mkdir -p _repos && mkdir -p _tmp",
+    "gitlogg": "./scripts/gitlogg.sh"
+  },
   "engines": {
-    "node": ">=4.0.3"
+    "node": ">=4.3.0"
   }
 }
