@@ -156,12 +156,12 @@ There are two modes and they are basically the same, except that the **Simple Mo
 
 To simplify the generation process to a point that no configuration is required, follow this directory structure:
 
-    gitlogg/          <== this repository's root
+    gitlogg/          <== This repository's root
     ├── scripts/
     │   ├── gitlogg-generate-log.sh
     │   ├── gitlogg-parse-json.js
     │   └── gitlogg.sh
-    └── _repos/       <== copy/place/keep your repositories under the folder "_repos/"
+    └── _repos/       <== Copy/place/keep your repositories under the folder "_repos/"
         ├── repo1
         ├── repo2
         ├── repo3
@@ -190,7 +190,17 @@ _**Tip:** drag the folder that contain your repositories to a terminal window, a
 
 ## The parsed `JSON` file
 
-> _Two files will be generated: `_tmp/gitlogg.tmp` and `_output/gitlogg.json`._
+> Two files will be generated when running `npm run gitlogg`: **`_tmp/gitlogg.tmp`** and **`_output/gitlogg.json`**.
+
+    gitlogg/                <== This repository's root
+    ├── scripts/
+    │   ├── gitlogg-generate-log.sh
+    │   ├── gitlogg-parse-json.js
+    │   └── gitlogg.sh
+    ├── _output/
+    │   └── gitlogg.json    <== The parsed 'JSON', what we're all after. It's parsed from 'gitlogg.tmp'
+    └── _tmp/
+        └── gitlogg.tmp     <== The processed 'git log'
 
 Two files were necessary because of the nature of the script, that loops through all subdirectories and outputs the `git log` for all valid `git` repositories. Once that loop is done, a valid `JSON` file (`gitlogg.json`) is generated out of `gitlogg.tmp`.
 
