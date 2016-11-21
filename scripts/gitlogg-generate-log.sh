@@ -6,7 +6,6 @@ cd $my_dir
 source "colors.sh"
 
 cd ..
-pwd
 
 # define the absolute path to the directory that contains all your repositories.
 yourpath='./_repos/'
@@ -14,8 +13,14 @@ yourpath='./_repos/'
 # define temporary 'git log' output file that will be parsed to 'json'
 tempOutputFile='_tmp/gitlogg.tmp'
 
+# ensure file exists
+install -D /dev/null $tempOutputFile
+
+
 # name and path to this very script, for output message purposes
 thisFile='./scripts/gitlogg-generate-log.sh'
+
+workerFile='./scripts/output-intermediate-gitlog.sh'
 
 # define path to 'json' parser
 jsonParser='./scripts/gitlogg-parse-json.js'
@@ -83,7 +88,7 @@ SECONDS=0
 if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
   echo -e "${Yel}Generating ${Pur}git log ${Yel}for ${reporef} located at ${Red}'${thepath}'${Yel}. ${Blu}This might take a while!${RCol}"
   dirs=$(ls -d $thepath)
-  echo $dirs | xargs -n 1 -P $NUM_THREADS ./output-intermediate-gitlog.sh > ${tempOutputFile}
+  echo $dirs | xargs -n 1 -P $NUM_THREADS $workerFile > ${tempOutputFile}
   echo -e "${Gre}The file ${Blu}${tempOutputFile} ${Gre}generated in${RCol}: ${SECONDS}s" &&
   babel "${jsonParser}" | node              # only parse JSON if we have a source to parse it from
 # if the path exists but is empty

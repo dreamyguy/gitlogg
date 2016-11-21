@@ -2,7 +2,12 @@
 
 # Returns an intermediate representation of git log with the given repository to stdout
 
+my_dir="$(dirname "$0")"
+cd $my_dir
+
 source "colors.sh"
+
+cd ..
 
 test "$1" || exit 1
 dir=$1
