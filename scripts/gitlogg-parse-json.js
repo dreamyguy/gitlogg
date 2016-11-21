@@ -1,7 +1,8 @@
 var fs = require('fs'),
     path = require('path'),
     chalk = require('chalk'),
-    output_file = './gitlogg.json';
+    output_file_temp = '_tmp/gitlogg.tmp',
+    output_file = '_output/gitlogg.json';
 
 console.log(chalk.yellow('Generating JSON output...'));
 
@@ -16,7 +17,7 @@ var changes = function(data, index) {
 
 console.time(chalk.green('JSON output generated in'));
 
-var output = fs.readFileSync('gitlogg.tmp', 'utf8')
+var output = fs.readFileSync(output_file_temp, 'utf8')
   .trim()
   .split('\n')
   .map(line => line.split('\\t'))
