@@ -1,3 +1,6 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-bash ./scripts/gitlogg-generate-log.sh
+my_dir="$(dirname "$0")"
+cd $my_dir
+
+bash gitlogg-generate-log.sh $@
