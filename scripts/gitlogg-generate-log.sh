@@ -14,8 +14,8 @@ yourpath='./_repos/'
 tempOutputFile='_tmp/gitlogg.tmp'
 
 # ensure file exists
-install -D /dev/null $tempOutputFile
-
+mkdir -p ${tempOutputFile%%.*}
+touch $tempOutputFile
 
 # name and path to this very script, for output message purposes
 thisFile='./scripts/gitlogg-generate-log.sh'
