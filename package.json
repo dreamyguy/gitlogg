@@ -26,13 +26,14 @@
     "gitlogg": "scripts/gitlogg.sh"
   },
   "scripts": {
-    "build": "babel --source-maps --out-file scripts/gitlogg-parse-json.compiled.js scripts/gitlogg-parse-json.js",
+    "build": "babel --source-maps --out-dir scripts scripts",
     "test": "GITLOGG_DEV=1 ./gitlogg/gitlogg.sh ./",
     "prepublish": "npm run build"
   },
   "dependencies": {
     "chalk": "^1.1.3",
-    "lodash": "^4.17.2"
+    "lodash": "^4.17.2",
+    "which": "^1.2.12"
   },
   "devDependencies": {
     "babel-cli": "^6.18.0",

@@ -153,4 +153,4 @@ const output = `
 exports.fields = ${ inspect(fields) };
 `;
 
-fs.writeFileSync(path.join(__dirname, 'git-log-fields.js'), output);
+fs.writeFileSync(path.join(__dirname, 'git-log-fields.es'), output);

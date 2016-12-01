@@ -5,17 +5,17 @@ runJs() {
   shift
   if [[ "$GITLOGG_DEV" = "" ]]; then
     # Run precompiled .compiled.js
-    node "${script%.js}.compiled.js" "$@"
+    node "${script%.es}.js" "$@"
   else
     # Development: transpile .js at runtime
     babel "$script" | node "$@"
   fi
 }
 
-workerFile="$__dirname/output-intermediate-gitlog.sh"
+workerFile="$__dirname/output-intermediate-gitlog.es"
 
 # define path to 'json' parser
-jsonParser="$__dirname/gitlogg-parse-json.js"
+jsonParser="$__dirname/gitlogg-parse-json.es"
 
 # Display system usage and exit
 usage()
