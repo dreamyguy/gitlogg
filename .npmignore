@@ -4,5 +4,5 @@ npm-debug.log
 node_modules/
 assets/
 gitlogg.json
-scripts/**/*.js
-scripts/**/*.js.map
+.editorconfig
+.babelrc
