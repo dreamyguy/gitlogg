@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as Path from 'path';
+import * as StreamSplit from 'stream-split';
 
 import {chunk} from 'lodash';
 
@@ -32,18 +33,39 @@ function changes(data) {
 /**
  * Parse intermediate output from a *single* git repository into JSON
  */
-export function parseToJson(rawInput, repoName) {
+export function parseToJson(inputStream, repoName) {
 
   console.log(`${ yellow }Generating JSON output...${ reset }`);
 
   console.time(`${ green }JSON output for ${ repoName } generated in${ reset }`);
 
-  let input = rawInput.split('\0');
-  input.shift();
   const totalFields = fields.length;
-  const inputCommits = chunk(input, totalFields);
 
-  const commits = inputCommits.map((item, index) => {
+  // Split the input on null bytes
+  const splitter = new StreamSplit(new Buffer([0]), {
+    // Pass all buffer, even the zero-length ones
+    readableObjectMode: true
+  });
+  inputStream.pipe(splitter);
+  // Skip leading null byte
+  splitter.once('data', () => {
+    splitter.on('data', onData);
+  });
+  const commits = [];
+  let item = [];
+  let commitIndex = 0;
+  let fieldIndex = 0;
+  function onData(field) {
+    item[fieldIndex++] = field.toString('utf8');
+    // If we've received a full commit's worth of fields, parse it
+    if(fieldIndex === totalFields) {
+      commits.push(parseCommit(item, commitIndex++));
+      fieldIndex = 0;
+    }
+  }
+
+  // Parse a commit from an array of fields
+  function parseCommit(item, index) {
       // The last field for each commit includes the trailing newline output by `git log`; remove it
       item[totalFields - 1] = item[totalFields - 1].slice(0, -1);
 
@@ -76,11 +98,19 @@ export function parseToJson(rawInput, repoName) {
       }
 
       return commit;
+  }
+
+  // Wait for the stream to finish
+  const commitsPromise = new Promise((res, rej) => {
+    splitter.on('finish', () => {
+      console.timeEnd(`${ green }JSON output for ${ repoName } generated in${ reset }`);
+      res(commits);
     });
+  });
 
-  console.timeEnd(`${ green }JSON output for ${ repoName } generated in${ reset }`);
-
-  return commits;
+  return {
+    commits: commitsPromise
+  };
 }
 
 function delimitedArray(field, delim) {

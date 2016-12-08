@@ -10,7 +10,7 @@ import {formatString} from './git-log-fields';
 import {console} from './console';
 import {magenta, reset} from './colors';
 
-export async function outputIntermediateGitLog(dir) {
+export function outputIntermediateGitLog(dir) {
   // Returns an intermediate representation of git log with the given repository
   const dirName = Path.basename(dir);
 
@@ -36,20 +36,20 @@ export async function outputIntermediateGitLog(dir) {
     cwd: dir,
     stdio: ['ignore', 'pipe', 'pipe']
   });
-  // Capture stdout and stderr in strings
-  const stdoutPromise = streamToString(gitProcess.stdout, 'utf8');
-  // Capture stdout in a string
+  // Capture stderr in a string
   const stderrPromise = streamToString(gitProcess.stderr, 'utf8');
-  // Wait for the process to exit.  Throw on error.
-  const exitCodeOrError = await new Promise((res, rej) => {
+  // Resolves when the process exits with 0.  Rejects on error or non-zero exit status.
+  const complete = new Promise((res, rej) => {
     gitProcess.on('exit', code => code ? gitError(null, code) : res(code));
     gitProcess.on('error', (err) => gitError(err));
     async function gitError(err, code) {
       rej(new GitError(dir, await stderrPromise, code));
     }
   });
-  return await stdoutPromise;
-
+  return {
+    complete,
+    stream: gitProcess.stdout
+  };
 }
 
 export class GitError extends Error {

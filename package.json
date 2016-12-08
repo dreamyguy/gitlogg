@@ -43,6 +43,7 @@
     "cross-spawn": "^5.0.1",
     "lodash": "^4.17.2",
     "promise-cb": "^0.1.4",
+    "stream-split": "^1.1.0",
     "stream-to-string": "^1.1.0",
     "tslib": "^1.2.0",
     "yargs": "^6.5.0"

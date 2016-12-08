@@ -124,16 +124,34 @@ async function run() {
   const output = {};
   await mapConcurrent(repositories, async (repo) => {
     const dirName = Path.basename(repo);
-    const intermediate = await outputIntermediateGitLog(repo);
-    const json = parseToJson(intermediate, dirName);
+    const intermediate = outputIntermediateGitLog(repo);
+    const {commits} = parseToJson(intermediate.stream, dirName);
+    const [json] = await Promise.all([
+      commits,
+      intermediate.complete
+    ]);
     output[dirName] = json;
   }, NUM_THREADS);
 
-  const jsonString = JSON.stringify(output, null, 2);
-  if(typeof argv.out === 'string') {
-    fs.writeFileSync(argv.out, jsonString);
-  } else {
-    fs.writeSync(1, jsonString, undefined, 'utf8');
-  }
+  const outputStream = typeof argv.out === 'string'
+    ? outputStream = fs.createWriteStream(argv.out)
+    : process.stdout;
+
+  const repos = Object.keys(output);
+  outputStream.write('{\n');
+  repos.forEach((repo, i) => {
+    if(i) outputStream.write(',\n');
+    outputStream.write(JSON.stringify(repo));
+    outputStream.write(': [\n');
+    output[repo].forEach((commit, i) => {
+      if(i) outputStream.write(',\n');
+      outputStream.write(JSON.stringify(commit, null, 2));
+    });
+    outputStream.write(']\n');
+  });
+  outputStream.write('}\n');
+
+  (outputStream === process.stdout) || outputStream.end();
+
   console.log(`${ green }Done!${ reset }`);
 }
