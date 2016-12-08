@@ -32,5 +32,9 @@
   },
   "engines": {
     "node": ">=4.3.0"
+  },
+  "dependencies": {
+    "JSONStream": "^1.2.1",
+    "byline": "4.2.2"
   }
 }
