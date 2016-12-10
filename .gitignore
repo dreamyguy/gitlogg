@@ -1,8 +1,19 @@
+##<generate npm />
+
+.vscode
+node_modules
 *.DS_Store
+
+##<for npm>
+##.babelrc
+##.editorconfig
+##.gitignore
+##</for>
+
+gitlogg.json
 npm-debug.log
 
-node_modules/
-assets/
-gitlogg.json
-scripts/**/*.js
-scripts/**/*.js.map
+##<for git>
+lib
+.npmignore
+##</for>

@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        // Compile plain Javascript
+        "allowJs": true,
+        "rootDir": "scripts",
+        "outDir": "lib",
+
+        // Transpilation options
+        "module": "commonjs",
+        "target": "es5",
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "importHelpers": true,
+
+        // "Linting" options
+        "forceConsistentCasingInFileNames": true,
+        "allowUnreachableCode": false
+    },
+    "include": [
+      "scripts/**/*"
+    ]
+}

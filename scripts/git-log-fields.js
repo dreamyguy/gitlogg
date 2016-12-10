@@ -1,5 +1,5 @@
 
-const fields = exports.fields = [
+export const fields = [
   { code: '%H',
     name: 'commit hash',
     fullDescription: 'commit hash',

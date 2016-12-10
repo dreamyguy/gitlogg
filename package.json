@@ -20,24 +20,39 @@
     "email": "i@dreamyguy.com",
     "url": "http://sidhree.com/"
   },
-  "copyright": "Copyright (c) Wallace Sidhrée - All rights reserved.",
+  "contributors": [
+    {
+      "name": "Andrew Bradley",
+      "email": "cspotcode@gmail.com",
+      "url": "http://www.cspotcode.com"
+    }
+  ],
+  "copyright": "Copyright (c) Wallace Sidhrée, Andrew Bradley - All rights reserved.",
   "license": "MIT",
   "bin": {
-    "gitlogg": "scripts/gitlogg.sh"
+    "gitlogg": "lib/cli.js"
   },
   "scripts": {
-    "build": "babel --source-maps --out-dir scripts scripts",
-    "test": "GITLOGG_DEV=1 ./gitlogg/gitlogg.sh ./",
-    "prepublish": "npm run build"
+    "clean": "rm -rf lib",
+    "build": "tsc -p . && generate-ignore",
+    "test": "npm run build && ./lib/cli.js ./",
+    "prepublish": "npm run clean && npm run build"
   },
   "dependencies": {
     "chalk": "^1.1.3",
+    "cross-spawn": "^5.0.1",
     "lodash": "^4.17.2",
-    "which": "^1.2.12"
+    "promise-cb": "^0.1.4",
+    "stream-to-string": "^1.1.0",
+    "tslib": "^1.2.0",
+    "yargs": "^6.5.0"
   },
   "devDependencies": {
-    "babel-cli": "^6.18.0",
-    "babel-preset-es2015": "^6.9.0",
+    "@types/chalk": "^0.4.31",
+    "@types/lodash": "^4.14.43",
+    "@types/node": "0.0.2",
+    "@types/yargs": "^6.3.3",
+    "generate-ignore": "0.0.2",
     "source-map-support": "^0.4.6"
   },
   "engines": {

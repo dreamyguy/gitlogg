@@ -1,9 +1,10 @@
 // Code generator: generates JS list of all git log fields
 
-const {groupBy, each} = require('lodash');
-const {inspect} = require('util');
-const fs = require('fs');
-const path = require('path');
+import {inspect} from 'util';
+import * as fs from 'fs';
+import * as Path from 'path';
+
+import {groupBy, each} from 'lodash';
 
 // Copy-pasted from https://git-scm.com/docs/pretty-formats, with all formatting-related codes removed.
 const gitLogFieldDocs = `
@@ -150,7 +151,7 @@ each(groupBy(fields, 'identifier'), group => {
 });
 
 const output = `
-exports.fields = ${ inspect(fields) };
+export const fields = ${ inspect(fields) };
 `;
 
-fs.writeFileSync(path.join(__dirname, 'git-log-fields.es'), output);
+fs.writeFileSync(Path.join(__dirname, 'git-log-fields.es'), output);
