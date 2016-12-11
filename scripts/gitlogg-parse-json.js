@@ -47,7 +47,10 @@ export function parseToJson(rawInput, repoName) {
       // The last field for each commit includes the trailing newline output by `git log`; remove it
       item[totalFields - 1] = item[totalFields - 1].slice(0, -1);
 
-      const commit = {};
+      const commit = {
+        repository: repoName,
+        commit_nr: index + 1
+      };
       fields.forEach((field, i) => {
         commit[field.identifier] = item[i];
       });
@@ -57,8 +60,6 @@ export function parseToJson(rawInput, repoName) {
       const insertions = commit.insertions = commitChanges.insertions;
       const deletions = commit.deletions = commitChanges.deletions;
       commit.impact = insertions - deletions;
-
-      commit.commit_nr = index + 1;
 
       return commit;
     });
