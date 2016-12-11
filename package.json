@@ -1,5 +1,5 @@
 {
-  "name": "gitlogg",
+  "name": "@cspotcode/gitlogg",
   "version": "0.1.7",
   "description": "Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file",
   "keywords": [
@@ -10,10 +10,10 @@
     "json",
     "git log json"
   ],
-  "homepage": "https://github.com/dreamyguy/gitlogg",
+  "homepage": "https://github.com/cspotcode/gitlogg",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dreamyguy/gitlogg"
+    "url": "https://github.com/cspotcode/gitlogg"
   },
   "author": {
     "name": "Wallace Sidhrée",
