@@ -64,7 +64,7 @@ export function parseToJson(rawInput, repoName) {
       // Perform more normalization and cleanup of fields
       commit.shortstats = commit.shortstats.trim();
       commit.parent_hashes = delimitedArray(commit.parent_hashes, ' ');
-      commit.abbreviated_parent_hashes = delimitedArray(commit.abbreviated_parent_hashes, ' ');
+      commit.parent_hashes_abbreviated = delimitedArray(commit.parent_hashes_abbreviated, ' ');
       commit.ref_names = delimitedArray(commit.ref_names, ', ');
       if(!commit.encoding.length) commit.encoding = undefined;
       if(!commit.commit_notes.length) commit.commit_notes = undefined;
