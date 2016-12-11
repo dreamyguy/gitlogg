@@ -61,6 +61,8 @@ export function parseToJson(rawInput, repoName) {
       const deletions = commit.deletions = commitChanges.deletions;
       commit.impact = insertions - deletions;
 
+      // Perform more normalization and cleanup of fields
+      commit.shortstats = commit.shortstats.trim();
       // If commit is not signed
       if(commit.signature_validity === 'N') {
         commit.raw_GPG_verification_message = undefined;
