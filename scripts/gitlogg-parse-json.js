@@ -61,6 +61,13 @@ export function parseToJson(rawInput, repoName) {
       const deletions = commit.deletions = commitChanges.deletions;
       commit.impact = insertions - deletions;
 
+      // If commit is not signed
+      if(commit.signature_validity === 'N') {
+        commit.raw_GPG_verification_message = undefined;
+        commit.signer_name = undefined;
+        commit.key = undefined;
+      }
+
       return commit;
     });
 
