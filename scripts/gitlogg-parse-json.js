@@ -66,6 +66,8 @@ export function parseToJson(rawInput, repoName) {
       commit.parent_hashes = delimitedArray(commit.parent_hashes, ' ');
       commit.abbreviated_parent_hashes = delimitedArray(commit.abbreviated_parent_hashes, ' ');
       commit.ref_names = delimitedArray(commit.ref_names, ', ');
+      if(!commit.encoding.length) commit.encoding = undefined;
+      if(!commit.commit_notes.length) commit.commit_notes = undefined;
       // If commit is not signed
       if(commit.signature_validity === 'N') {
         commit.raw_GPG_verification_message = undefined;
