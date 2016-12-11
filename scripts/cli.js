@@ -127,7 +127,12 @@ async function run() {
     const json = parseToJson(intermediate, dirName);
     output[dirName] = json;
   }, NUM_THREADS);
-  const outputFile = typeof argv.out === 'string' ? argv.out : 1;
-  fs.writeFileSync(outputFile, JSON.stringify(output, null, 2));
+
+  const jsonString = JSON.stringify(output, null, 2);
+  if(typeof argv.out === 'string') {
+    fs.writeFileSync(argv.out, jsonString);
+  } else {
+    fs.writeSync(1, jsonString, undefined, 'utf8');
+  }
   console.log(`${ green }Done!${ reset }`);
 }
