@@ -14,6 +14,7 @@ import {console, create as createConsole} from './console';
 import {NullStream} from './null-stream';
 import {outputIntermediateGitLog} from './output-intermediate-gitlog';
 import {parseToJson} from './gitlogg-parse-json';
+import {mapConcurrent} from './map-concurrent';
 
 // Stack traces will use sourcemaps to show source code locations
 try {
@@ -129,39 +130,4 @@ async function run() {
   const outputFile = typeof argv.out === 'string' ? argv.out : 1;
   fs.writeFileSync(outputFile, JSON.stringify(output, null, 2));
   console.log(`${ green }Done!${ reset }`);
-}
-
-
-function mapConcurrent(array, map, max) {
-  return new Promise((res, rej) => {
-    if(array.length === 0) return [];
-    if(max < 1) throw new Error('max must be >= 1');
-
-    const outputValues = [];
-    let halt = false;
-    let running = 0;
-    let next = 0;
-    let total = array.length;
-    while(running < max && next < total) startNext();
-    function startNext() {
-      running++;
-      const i = next++;
-      const promise = map(array[i], i, array);
-      Promise.resolve(promise).then((v) => onResolved(i, v), onRejected);
-    }
-    function onResolved(index, val) {
-      if(halt) return;
-      outputValues[index] = val;
-      running--;
-      if(next < total) {
-        startNext();
-      } else if(running === 0) {
-        res(outputValues);
-      }
-    }
-    function onRejected(err) {
-      halt = true;
-      rej(err);
-    }
-  });
 }
