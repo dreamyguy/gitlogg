@@ -63,6 +63,9 @@ export function parseToJson(rawInput, repoName) {
 
       // Perform more normalization and cleanup of fields
       commit.shortstats = commit.shortstats.trim();
+      commit.parent_hashes = delimitedArray(commit.parent_hashes, ' ');
+      commit.abbreviated_parent_hashes = delimitedArray(commit.abbreviated_parent_hashes, ' ');
+      commit.ref_names = delimitedArray(commit.ref_names, ', ');
       // If commit is not signed
       if(commit.signature_validity === 'N') {
         commit.raw_GPG_verification_message = undefined;
@@ -76,4 +79,8 @@ export function parseToJson(rawInput, repoName) {
   console.timeEnd(`${ green }JSON output for ${ repoName } generated in${ reset }`);
 
   return commits;
+}
+
+function delimitedArray(field, delim) {
+  return field.length ? field.split(delim) : [];
 }
