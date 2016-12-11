@@ -91,11 +91,12 @@ const NUM_THREADS = argv.parallel
 console.log(`${ blue }Info: Calculating in ${ NUM_THREADS } thread(s)${ reset }`);
 
 
+/** Array of normalized, absolute paths to git repositories */
 const repositories = typeof argv.directory === 'string'
   // Each subdirectory of --directory is a git repository
-  ? fs.readdirSync(argv.directory).map(path => Path.join(argv.directory, path)).filter(path => fs.statSync(path).isDirectory())
+  ? fs.readdirSync(argv.directory).map(path => Path.join(Path.resolve(argv.directory), path)).filter(path => fs.statSync(path).isDirectory())
   // Each positional argument is a path to a git repository
-  : argv._;
+  : argv._.map(p => Path.resolve(Path.normalize(p)));
 
 // number of directories (repos)
 const DIRCOUNT = repositories.length;
