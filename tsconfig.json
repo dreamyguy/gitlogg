@@ -2,7 +2,7 @@
     "compilerOptions": {
         // Compile plain Javascript
         "allowJs": true,
-        "rootDir": "scripts",
+        "rootDir": "src",
         "outDir": "lib",
 
         // Transpilation options
@@ -17,6 +17,6 @@
         "allowUnreachableCode": false
     },
     "include": [
-      "scripts/**/*"
+      "src/**/*"
     ]
 }
