@@ -3,11 +3,14 @@
 .vscode
 node_modules
 *.DS_Store
+ignored
+.npmignore
 
 ##<for npm>
 ##.babelrc
 ##.editorconfig
 ##.gitignore
+##tsconfig.json
 ##</for>
 
 gitlogg.json
@@ -15,5 +18,4 @@ npm-debug.log
 
 ##<for git>
 lib
-.npmignore
 ##</for>
