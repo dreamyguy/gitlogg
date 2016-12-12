@@ -20,15 +20,6 @@ export function outputIntermediateGitLog(dir) {
 
   console.log(`Outputting ${ magenta }${ dirName }${ reset }`);
 
-  // const gitProcess = child_process.spawnSync('git', [
-  //   '--no-pager', 'log', '--all', '--no-merges', '--shortstat', '--reverse',
-  //   `--pretty=tformat:%x00${ formatString }`
-  // ], {
-  //   cwd: dir,
-  //   stdio: ['ignore', 'pipe', 'pipe']
-  // });
-  // return gitProcess.stdout;
-
   const gitProcess = crossSpawn('git', [
     '--no-pager', 'log', '--all', '--no-merges', '--shortstat', '--reverse',
     `--pretty=tformat:%x00${ formatString }`
