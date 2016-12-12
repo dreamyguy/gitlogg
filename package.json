@@ -54,7 +54,8 @@
     "@types/node": "0.0.2",
     "@types/yargs": "^6.3.3",
     "generate-ignore": "0.0.2",
-    "source-map-support": "^0.4.6"
+    "source-map-support": "^0.4.6",
+    "typescript": "^2.1.4"
   },
   "engines": {
     "node": ">=4.3.0"
