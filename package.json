@@ -1,6 +1,6 @@
 {
   "name": "@cspotcode/gitlogg",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file",
   "keywords": [
     "gitlog",
