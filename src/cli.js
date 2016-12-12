@@ -134,7 +134,7 @@ async function run() {
   }, NUM_THREADS);
 
   const outputStream = typeof argv.out === 'string'
-    ? outputStream = fs.createWriteStream(argv.out)
+    ? fs.createWriteStream(argv.out)
     : process.stdout;
 
   const repos = Object.keys(output);
