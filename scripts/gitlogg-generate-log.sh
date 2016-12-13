@@ -42,15 +42,15 @@ echo -e "${Blu}Info: Calculating in $NUM_THREADS thread(s)${RCol}"
 # ensure there's always a '/' at the end of the 'yourpath' variable, since its value can be changed by user.
 case "$yourpath" in
   */)
-    yourpathSanitized="${yourpath}"   # no changes if there's already a slash at the end - syntax sugar
+    yourPathSanitized="${yourpath}"   # no changes if there's already a slash at the end - syntax sugar
     ;;
   *)
-    yourpathSanitized="${yourpath}/"  # add a slash at the end if there isn't already one
+    yourPathSanitized="${yourpath}/"  # add a slash at the end if there isn't already one
     ;;
 esac
 
 # 'thepath' sets the path to each repository under 'yourpath' (the trailing asterix [*/] represents all the repository folders).
-thepath="${yourpathSanitized}*/"
+thepath="${yourPathSanitized}*/"
 
 
 # function to trim whitespace
@@ -78,23 +78,26 @@ fi
 SECONDS=0
 
 # if the path exists and is not empty
-if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
-    echo -e "${Yel}Generating ${Pur}git log ${Yel}for ${reporef} located at ${Red}'${thepath}'${Yel}. ${Blu}This might take a while!${RCol}"
+if [ -d "${yourPathSanitized}" ] && [ "$(ls $yourPathSanitized)" ]; then
+  echo -e "${Yel}Generating ${Pur}git log ${Yel}for ${reporef} located at ${Red}'${thepath}'${Yel}. ${Blu}This might take a while!${RCol}"
     
-    # ensure file exists
-    mkdir -p ${tempOutputFile%%.*}
-    touch ${tempOutputFile}
-    
+  # ensure file exists or create it
+  mkdir -p ${tempOutputFile%%.*}
+
   dirs=$(ls -d $thepath)
   echo $dirs | xargs -n 1 -P $NUM_THREADS $workerFile
+
+  cat $tempOutputFile.part.* > $tempOutputFile
+  rm $tempOutputFile.part.*
+  
   echo -e "${Gre}The file ${Blu}${tempOutputFile} ${Gre}generated in${RCol}: ${SECONDS}s" &&
   babel "${jsonParser}" | node              # only parse JSON if we have a source to parse it from
 # if the path exists but is empty
-elif [ -d "${yourpathSanitized}" ] && [ ! "$(ls $yourpathSanitized)" ]; then
+elif [ -d "${yourPathSanitized}" ] && [ ! "$(ls $yourPathSanitized)" ]; then
   echo -e "${Whi}[ERROR 002]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'${thisFile}' ${UYel}exists, but is empty!${RCol}"
   echo -e "${Yel}Please move the repos to ${Red}'${yourpath}'${Yel} or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"
 # if the path does not exists
-elif [ ! -d "${yourpathSanitized}" ]; then
+elif [ ! -d "${yourPathSanitized}" ]; then
   echo -e "${Whi}[ERROR 001]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'${thisFile}' ${UYel}does not exist!${RCol}"
   echo -e "${Yel}Please create ${Red}'${yourpath}'${Yel} and move the repos under it, or update the variable ${Pur}'yourpath'${Yel} to reflect the absolute path to the directory where the repos are located.${RCol}"
 fi
