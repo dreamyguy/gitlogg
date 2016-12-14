@@ -192,13 +192,7 @@ _**Tip:** drag the folder that contain your repositories to a terminal window, a
 
 #### Parallel Processing
 
-All the scripting around the `git log` command makes running **Gitlogg** a time consuming task. @inventitech contributed with [parallelization](https://github.com/dreamyguy/gitlogg/pull/10), which made the whole process a lot faster.
-
-One can increase or decrease the number of parallel processes by running:
-
-        $ bash ./scripts/gitlogg-generate-log.sh -n 12
-
-...with **12** being the number of processes to run in parallel. If one does not set a value, `gitlogg-generate-log.sh` will run on to **7** parallel processes by default.
+The parallel processing that was released on [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) had problems with `xargs` and was temporarily removed. The issue is being dealt with through [pull-request #16](https://github.com/dreamyguy/gitlogg/pull/16).
 
 ## The parsed `JSON` file
 
@@ -257,7 +251,7 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 #### Known Issues
 
-`xargs` can be unreliable when running parallel processes. This is unfortunate, but is being dealt with on [pull-request #16](https://github.com/dreamyguy/gitlogg/pull/16).
+There are _no known issues_ at this point. The parallelization that was introduced on [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) had issues with `xargs`, so its introduction was temporarily reverted until the problem has been dealt with through [pull-request #16](https://github.com/dreamyguy/gitlogg/pull/16).
 
 #### Release History
 

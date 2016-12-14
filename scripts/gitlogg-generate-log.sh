@@ -20,31 +20,8 @@ touch $tempOutputFile
 # name and path to this very script, for output message purposes
 thisFile='./scripts/gitlogg-generate-log.sh'
 
-workerFile='./scripts/output-intermediate-gitlog.sh'
-
 # define path to 'json' parser
 jsonParser='./scripts/gitlogg-parse-json.js'
-
-
-# Display system usage and exit
-usage()
-{
-  cat <<\USAGE_EOF
-usage: gitlogg-generate-log.sh [options]
-The following options are available
- -n X: Run X instances of gitlogg concurrently
-USAGE_EOF
-  exit 2
-}
-
-test "$1" = "--help" && usage
-
-# Use n-1 processors per default, so the system is not overloaded
-NUM_THREADS=$(($(getconf _NPROCESSORS_ONLN)-1))
-test $NUM_THREADS -lt 1 && NUM_THREADS=1
-
-test "$1" = "-n" && NUM_THREADS=$2
-echo -e "${Blu}Info: Calculating in $NUM_THREADS thread(s)${RCol}"
 
 # ensure there's always a '/' at the end of the 'yourpath' variable, since its value can be changed by user.
 case "$yourpath" in
@@ -87,8 +64,27 @@ SECONDS=0
 # if the path exists and is not empty
 if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
   echo -e "${Yel}Generating ${Pur}git log ${Yel}for ${reporef} located at ${Red}'${thepath}'${Yel}. ${Blu}This might take a while!${RCol}"
-  dirs=$(ls -d $thepath)
-  echo $dirs | xargs -n 1 -P $NUM_THREADS $workerFile > ${tempOutputFile}
+  for dir in $thepath
+  do
+      (cd $dir &&
+        echo -e "${Whi}Outputting ${Pur}${PWD##*/}${RCol}" >&2 &&
+        git log --all --no-merges --shortstat --reverse --pretty=format:'commits\trepository\t'"${PWD##*/}"'\tcommit_hash\t%H\tcommit_hash_abbreviated\t%h\ttree_hash\t%T\ttree_hash_abbreviated\t%t\tparent_hashes\t%P\tparent_hashes_abbreviated\t%p\tauthor_name\t%an\tauthor_name_mailmap\t%aN\tauthor_email\t%ae\tauthor_email_mailmap\t%aE\tauthor_date\t%ad\tauthor_date_RFC2822\t%aD\tauthor_date_relative\t%ar\tauthor_date_unix_timestamp\t%at\tauthor_date_iso_8601\t%ai\tauthor_date_iso_8601_strict\t%aI\tcommitter_name\t%cn\tcommitter_name_mailmap\t%cN\tcommitter_email\t%ce\tcommitter_email_mailmap\t%cE\tcommitter_date\t%cd\tcommitter_date_RFC2822\t%cD\tcommitter_date_relative\t%cr\tcommitter_date_unix_timestamp\t%ct\tcommitter_date_iso_8601\t%ci\tcommitter_date_iso_8601_strict\t%cI\tref_names\t%d\tref_names_no_wrapping\t%D\tencoding\t%e\tsubject\t%s\tsubject_sanitized\t%f\tcommit_notes\t%N\tstats\t' |
+          iconv -f ISO-8859-1 -t UTF-8 |    # convert ISO-8859-1 encoding to UTF-8
+          sed '/^[ \t]*$/d' |               # remove all newlines/line-breaks, including those with empty spaces
+          tr '\n' 'ò' |                     # convert newlines/line-breaks to a character, so we can manipulate it without much trouble
+          tr '\r' ' ' |                     # replace carriage returns with a space, so we avoid new lines popping from placeholders that allow user input
+          sed 's/tòcommits/tòòcommits/g' |  # because some commits have no stats, we have to create an extra line-break to make `paste -d ' ' - -` consistent
+          tr 'ò' '\n' |                     # bring back all line-breaks
+          sed '{
+              N
+              s/[)]\n\ncommits/)\
+          commits/g
+          }' |                              # some rogue mystical line-breaks need to go down to their knees and beg for mercy, which they're not getting
+          paste -d ' ' - - |                # collapse lines so that the `shortstat` is merged with the rest of the commit data, on a single line
+          awk '{print NR"\\t",$0}' |        # print line number in front of each line, along with the `\t` delimiter
+          sed 's/\\t\ commits\\trepo/\\t\commits\\trepo/g' # get rid of the one space that shouldn't be there
+      )
+  done > "${tempOutputFile}"
   echo -e "${Gre}The file ${Blu}${tempOutputFile} ${Gre}generated in${RCol}: ${SECONDS}s" &&
   babel "${jsonParser}" | node              # only parse JSON if we have a source to parse it from
 # if the path exists but is empty
