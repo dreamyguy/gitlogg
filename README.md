@@ -265,6 +265,7 @@ It's certainly not harmful to your repositories and it won't change any data in 
   * Parse `JSON` through a read/write stream, so we get around the 268MB `Node`'s buffer limitation.
     * This limited the whole operation to a number between 173,500 and 174,000 commits.
   * Parallelize the generation of `git log` for multiple repos, optionally passing number of processes as a CLI argument.
+  * Mitigate encoding problems caused by `ISO-8859-1` characters not being properly encoded to `UTF-8`.
 * 2016-11-21   [v0.1.7](https://github.com/dreamyguy/gitlogg/tree/v0.1.7) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.6...v0.1.7)
   * Better readability for 'Release History'
   * Correct url to logo, so it also renders outside Github
