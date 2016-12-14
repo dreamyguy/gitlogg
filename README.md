@@ -158,9 +158,11 @@ To simplify the generation process to a point that no configuration is required,
 
     gitlogg/          <== This repository's root
     ├── scripts/
+    │   ├── colors.sh
     │   ├── gitlogg-generate-log.sh
     │   ├── gitlogg-parse-json.js
-    │   └── gitlogg.sh
+    │   ├── gitlogg.sh
+    │   └── output-intermediate-gitlog.sh
     └── _repos/       <== Copy/place/keep your repositories under the folder "_repos/"
         ├── repo1
         ├── repo2
@@ -188,15 +190,27 @@ _**Tip:** drag the folder that contain your repositories to a terminal window, a
 
         $ npm run gitlogg
 
+#### Parallel Processing
+
+All the scripting around the `git log` command makes running **Gitlogg** a time consuming task. @inventitech contributed with [parallelization](https://github.com/dreamyguy/gitlogg/pull/10), which made the whole process a lot faster.
+
+One can increase or decrease the number of parallel processes by running:
+
+        $ bash ./scripts/gitlogg-generate-log.sh -n 12
+
+...with **12** being the number of processes to run in parallel. If one does not set a value, `gitlogg-generate-log.sh` will run on to **7** parallel processes by default.
+
 ## The parsed `JSON` file
 
 > Two files will be generated when running `npm run gitlogg`: **`_tmp/gitlogg.tmp`** and **`_output/gitlogg.json`**.
 
     gitlogg/                <== This repository's root
     ├── scripts/
+    │   ├── colors.sh
     │   ├── gitlogg-generate-log.sh
     │   ├── gitlogg-parse-json.js
-    │   └── gitlogg.sh
+    │   ├── gitlogg.sh
+    │   └── output-intermediate-gitlog.sh
     ├── _output/
     │   └── gitlogg.json    <== The parsed 'JSON', what we're all after. It's parsed from 'gitlogg.tmp'
     └── _tmp/
@@ -241,8 +255,16 @@ This project is by no means the smartest way to parse a `git log` to `JSON`, nor
 
 It's certainly not harmful to your repositories and it won't change any data in it. Having said that, it's served _raw_ and _'as is'_. You may get support, but don't expect it nor take it for granted.
 
+#### Known Issues
+
+`xargs` can be unreliable when running parallel processes. This is unfortunate, but is being dealt with on [pull-request #16](https://github.com/dreamyguy/gitlogg/pull/16).
+
 #### Release History
 
+* 2016-12-14   [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.7...v0.1.8)
+  * Parse `JSON` through a read/write stream, so we get around the 268MB `Node`'s buffer limitation.
+    * This limited the whole operation to a number between 173,500 and 174,000 commits.
+  * Parallelize the generation of `git log` for multiple repos, optionally passing number of processes as a CLI argument.
 * 2016-11-21   [v0.1.7](https://github.com/dreamyguy/gitlogg/tree/v0.1.7) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.6...v0.1.7)
   * Better readability for 'Release History'
   * Correct url to logo, so it also renders outside Github
