@@ -249,10 +249,14 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 #### Known Issues
 
-There are _no known issues_ at this point. The parallelization that was introduced on [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) had issues with `xargs`, so its introduction was temporarily reverted until the problem has been dealt with through [pull-request #16](https://github.com/dreamyguy/gitlogg/pull/16).
+There are _no known issues_ at this point. The parallelization that was introduced on [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) had issues with `xargs`, so its introduction was temporarily reverted until the problem has been dealt with through [pull-request #16](https://github.com/dreamyguy/gitlogg/pull/16). [v0.1.9](https://github.com/dreamyguy/gitlogg/tree/v0.1.9) was released to revert those changes.
+
+This makes [v0.1.9](https://github.com/dreamyguy/gitlogg/tree/v0.1.9) the most stable release yet.
 
 #### Release History
 
+* 2016-12-15   [v0.1.9](https://github.com/dreamyguy/gitlogg/tree/v0.1.9) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.8...v0.1.9)
+  * Remove parallelization of processes until the problem with `xargs` has been dealt with.
 * 2016-12-14   [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.7...v0.1.8)
   * Parse `JSON` through a read/write stream, so we get around the 268MB `Node`'s buffer limitation.
     * This limited the whole operation to a number between 173,500 and 174,000 commits.
