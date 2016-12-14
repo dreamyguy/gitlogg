@@ -161,8 +161,7 @@ To simplify the generation process to a point that no configuration is required,
     │   ├── colors.sh
     │   ├── gitlogg-generate-log.sh
     │   ├── gitlogg-parse-json.js
-    │   ├── gitlogg.sh
-    │   └── output-intermediate-gitlog.sh
+    │   └── gitlogg.sh
     └── _repos/       <== Copy/place/keep your repositories under the folder "_repos/"
         ├── repo1
         ├── repo2
@@ -203,8 +202,7 @@ The parallel processing that was released on [v0.1.8](https://github.com/dreamyg
     │   ├── colors.sh
     │   ├── gitlogg-generate-log.sh
     │   ├── gitlogg-parse-json.js
-    │   ├── gitlogg.sh
-    │   └── output-intermediate-gitlog.sh
+    │   └── gitlogg.sh
     ├── _output/
     │   └── gitlogg.json    <== The parsed 'JSON', what we're all after. It's parsed from 'gitlogg.tmp'
     └── _tmp/
