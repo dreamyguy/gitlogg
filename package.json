@@ -1,6 +1,6 @@
 {
-  "name": "gitlogg",
-  "version": "0.1.7",
+  "name": "@cspotcode/gitlogg",
+  "version": "0.3.2",
   "description": "Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file",
   "keywords": [
     "gitlog",
@@ -10,25 +10,52 @@
     "json",
     "git log json"
   ],
-  "homepage": "https://github.com/dreamyguy/gitlogg",
+  "homepage": "https://github.com/cspotcode/gitlogg",
   "repository": {
     "type": "git",
-    "url": "https://github.com/dreamyguy/gitlogg"
+    "url": "https://github.com/cspotcode/gitlogg"
   },
   "author": {
     "name": "Wallace Sidhrée",
     "email": "i@dreamyguy.com",
     "url": "http://sidhree.com/"
   },
-  "copyright": "Copyright (c) Wallace Sidhrée - All rights reserved.",
+  "contributors": [
+    {
+      "name": "Andrew Bradley",
+      "email": "cspotcode@gmail.com",
+      "url": "http://www.cspotcode.com"
+    }
+  ],
+  "copyright": "Copyright (c) Wallace Sidhrée, Andrew Bradley - All rights reserved.",
   "license": "MIT",
-  "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "chalk": "^1.1.3"
+  "bin": {
+    "gitlogg": "lib/cli.js"
   },
   "scripts": {
-    "setup": "npm install babel-cli -g && npm install && mkdir -p _output && mkdir -p _repos && mkdir -p _tmp",
-    "gitlogg": "./scripts/gitlogg.sh"
+    "clean": "rm -rf lib",
+    "build": "tsc -p . && generate-ignore",
+    "test": "npm run build && ./lib/cli.js ./",
+    "prepublishOnly": "npm run clean && npm run build"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "cross-spawn": "^5.0.1",
+    "lodash": "^4.17.2",
+    "promise-cb": "^0.1.4",
+    "stream-split": "^1.1.0",
+    "stream-to-string": "^1.1.0",
+    "tslib": "^1.2.0",
+    "yargs": "^6.5.0"
+  },
+  "devDependencies": {
+    "@types/chalk": "^0.4.31",
+    "@types/lodash": "^4.14.43",
+    "@types/node": "0.0.2",
+    "@types/yargs": "^6.3.3",
+    "generate-ignore": "0.0.2",
+    "source-map-support": "^0.4.6",
+    "typescript": "^2.1.4"
   },
   "engines": {
     "node": ">=4.3.0"
