@@ -138,18 +138,15 @@ async function run() {
     : process.stdout;
 
   const repos = Object.keys(output);
-  outputStream.write('{\n');
+  outputStream.write('[');
   repos.forEach((repo, i) => {
-    if(i) outputStream.write(',\n');
-    outputStream.write(JSON.stringify(repo));
-    outputStream.write(': [\n');
+    if(i) outputStream.write(', ');
     output[repo].forEach((commit, i) => {
-      if(i) outputStream.write(',\n');
+      if(i) outputStream.write(', ');
       outputStream.write(JSON.stringify(commit, null, 2));
     });
-    outputStream.write(']\n');
   });
-  outputStream.write('}\n');
+  outputStream.write(']\n');
 
   (outputStream === process.stdout) || outputStream.end();
 
