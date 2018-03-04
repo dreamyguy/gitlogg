@@ -10,9 +10,15 @@ import {formatString} from './git-log-fields';
 import {console} from './console';
 import {magenta, reset} from './colors';
 
+export function getDirName(dir) {
+  const dirNameRaw = Path.basename(dir);
+  const dirName = dirNameRaw.substr(0, dirNameRaw.lastIndexOf('.')) || dirNameRaw;
+  return dirName;
+}
+
 export function outputIntermediateGitLog(dir) {
   // Returns an intermediate representation of git log with the given repository
-  const dirName = Path.basename(dir);
+  const dirName = this.getDirName(dir);
 
   if(!fs.existsSync(dir)) {
     throw new Error(`dir does not exist: ${ dir }`);

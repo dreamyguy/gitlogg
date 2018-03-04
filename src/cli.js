@@ -12,7 +12,7 @@ import * as packageJson from '../package';
 import {red, magenta, yellow, blue, green, reset} from './colors';
 import {console, create as createConsole} from './console';
 import {NullStream} from './null-stream';
-import {outputIntermediateGitLog} from './output-intermediate-gitlog';
+import {getDirName, outputIntermediateGitLog} from './output-intermediate-gitlog';
 import {parseToJson} from './gitlogg-parse-json';
 import {mapConcurrent} from './map-concurrent';
 
@@ -123,7 +123,7 @@ run();
 async function run() {
   const output = {};
   await mapConcurrent(repositories, async (repo) => {
-    const dirName = Path.basename(repo);
+    const dirName = getDirName(repo);
     const intermediate = outputIntermediateGitLog(repo);
     const {commits} = parseToJson(intermediate.stream, dirName);
     const [json] = await Promise.all([
