@@ -5,7 +5,7 @@ import * as StreamSplit from 'stream-split';
 import {chunk} from 'lodash';
 
 import {fields as gitLogFields} from './git-log-fields';
-import {yellow, green, reset} from './colors';
+import {magenta, green, reset} from './colors';
 import {console} from './console';
 
 const fields = [
@@ -35,9 +35,7 @@ function changes(data) {
  */
 export function parseToJson(inputStream, repoName) {
 
-  console.log(`${ yellow }Generating JSON output...${ reset }`);
-
-  console.time(`${ green }JSON output for ${ repoName } generated in${ reset }`);
+  console.time(`${ green } JSON output for ${ magenta }${ repoName }${ green } completed after${ reset }`);
 
   const totalFields = fields.length;
 
@@ -103,7 +101,7 @@ export function parseToJson(inputStream, repoName) {
   // Wait for the stream to finish
   const commitsPromise = new Promise((res, rej) => {
     splitter.on('finish', () => {
-      console.timeEnd(`${ green }JSON output for ${ repoName } generated in${ reset }`);
+      console.timeEnd(`${ green } JSON output for ${ magenta }${ repoName }${ green } completed after${ reset }`);
       res(commits);
     });
   });

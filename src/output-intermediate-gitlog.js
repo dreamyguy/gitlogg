@@ -24,7 +24,7 @@ export function outputIntermediateGitLog(dir) {
     throw new Error(`dir does not exist: ${ dir }`);
   }
 
-  console.log(`Outputting ${ magenta }${ dirName }${ reset }`);
+  console.log(` Outputting ${ magenta }${ dirName }${ reset }`);
 
   const gitProcess = crossSpawn('git', [
     '--no-pager', 'log', '--all', '--no-merges', '--shortstat', '--reverse',

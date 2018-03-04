@@ -88,7 +88,7 @@ const NUM_THREADS = argv.parallel
   ? argv.parallel
   // Use n-1 processors per default, so the system is not overloaded
   : os.cpus().length - 1
-console.log(`${ blue }Info: Calculating in ${ NUM_THREADS } thread(s)${ reset }`);
+console.log(`\n ${ blue }Info: Calculating in ${ NUM_THREADS } thread(s)${ reset }`);
 
 
 /** Array of normalized, absolute paths to git repositories */
@@ -112,15 +112,17 @@ if(DIRCOUNT > 1) {
   yargs.showHelp();
   process.exit(1);
 }
-const reposLocation = typeof argv.directory === 'string' ? ` located at ${ red }${ argv.directory }` : ``;
+const reposLocation = typeof argv.directory === 'string' ? ` ${ yellow }located at ${ red }${ argv.directory }` : ``;
 
 // start counting seconds elapsed
 const startTime = Date.now();
 
-console.log(`${ yellow }Generating ${ magenta }git log ${ yellow }for ${ reporef }${ reposLocation }${ yellow }. ${ blue }This might take a while!${ reset }`);
+console.log(`\n${ yellow } Generating ${ magenta }git log ${ yellow }for ${ reporef }${ reposLocation }${ yellow }. This might take a while!${ reset } 🚀\n`);
 
 run();
+console.log(`\n${ yellow } Generating JSON output...${ reset } ⚡️\n`);
 async function run() {
+  console.time(`\n ${ yellow }Total JSON output for ${ magenta }${ reporef }${ yellow } generated in${ reset }`);
   const output = {};
   await mapConcurrent(repositories, async (repo) => {
     const dirName = getDirName(repo);
@@ -150,5 +152,6 @@ async function run() {
 
   (outputStream === process.stdout) || outputStream.end();
 
-  console.log(`${ green }Done!${ reset }`);
+  console.timeEnd(`\n ${ yellow }Total JSON output for ${ magenta }${ reporef }${ yellow } generated in${ reset }`);
+  console.log(`\n ${ green }Done! ✨${ reset }\n`);
 }
