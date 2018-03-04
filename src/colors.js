@@ -1,4 +1,4 @@
-import {styles} from 'chalk';
+const styles = require('ansi-styles');
 
 export const red = styles.red.open;
 export const magenta = styles.magenta.open;
