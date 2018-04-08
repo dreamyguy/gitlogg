@@ -2,6 +2,8 @@
 
 > _Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file._
 
+[![MIT Licence](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/dreamyguy/gitlogg/blob/master/LICENSE) [![Data served by Gitlogg API](https://img.shields.io/badge/data_can_be_served_by-gitlogg--api-89336e.svg)](https://github.com/dreamyguy/gitlogg-api) [![Data served by Gitlogg API](https://img.shields.io/badge/data_can_be_rendered_by-gitinsight-89336e.svg)](https://github.com/dreamyguy/gitinsight)
+
 ## Why?
 
 `git log` is a wonderful tool. However its output can be not only surprisingly inconsistent, but also long, difficult to scan and to distribute.
