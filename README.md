@@ -59,44 +59,42 @@ _I have successfully compiled **`470`** repositories at once_ (all repos under t
 
 The output will look like this (first commit for **Font Awesome**):
 
-    {
-      "commits": [
-        {
-          "repository": "Font-Awesome",
-          "commit_nr": 1,
-          "commit_hash": "7ed221e28df1745a20009329033ac690ef000575",
-          "author_name": "Dave Gandy",
-          "author_email": "dave@davegandy.com",
-          "author_date": "Fri Feb 17 09:27:26 2012 -0500",
-          "author_date_relative": "4 years, 3 months ago",
-          "author_date_unix_timestamp": "1329488846",
-          "author_date_iso_8601": "2012-02-17 09:27:26 -0500",
-          "subject": "first commit",
-          "subject_sanitized": "first-commit",
-          "stats": " 1 file changed, 0 insertions(+), 0 deletions(-)",
-          "time_hour": 9,
-          "time_minutes": 27,
-          "time_seconds": 26,
-          "time_gmt": "-0500",
-          "date_day_week": "Fri",
-          "date_month_day": 17,
-          "date_month_name": "Feb",
-          "date_month_number": 2,
-          "date_year": "2012",
-          "date_iso_8601": "2012-02-17",
-          "files_changed": 1,
-          "insertions": 0,
-          "deletions": 0,
-          "impact": 0
-        },
-        {
-          (...)
-        },
-        {
-          (...)
-        }
-      ]
-    }
+    [
+      {
+        "repository": "Font-Awesome",
+        "commit_nr": 1,
+        "commit_hash": "7ed221e28df1745a20009329033ac690ef000575",
+        "author_name": "Dave Gandy",
+        "author_email": "dave@davegandy.com",
+        "author_date": "Fri Feb 17 09:27:26 2012 -0500",
+        "author_date_relative": "4 years, 3 months ago",
+        "author_date_unix_timestamp": "1329488846",
+        "author_date_iso_8601": "2012-02-17 09:27:26 -0500",
+        "subject": "first commit",
+        "subject_sanitized": "first-commit",
+        "stats": " 1 file changed, 0 insertions(+), 0 deletions(-)",
+        "time_hour": 9,
+        "time_minutes": 27,
+        "time_seconds": 26,
+        "time_gmt": "-0500",
+        "date_day_week": "Fri",
+        "date_month_day": 17,
+        "date_month_name": "Feb",
+        "date_month_number": 2,
+        "date_year": "2012",
+        "date_iso_8601": "2012-02-17",
+        "files_changed": 1,
+        "insertions": 0,
+        "deletions": 0,
+        "impact": 0
+      },
+      {
+        (...)
+      },
+      {
+        (...)
+      }
+    ]
 
 Note that many `git log` fields were not printed here, but that's only because I've commented out some of them in the **gitlogg-parse-json.js** script. All the fields below are available. Fields marked with a `*` are either non-standard or not available as placeholders on `--pretty=format:<string>`:
 
@@ -253,10 +251,19 @@ It's certainly not harmful to your repositories and it won't change any data in 
 
 There are _no known issues_ at this point. The parallelization that was introduced on [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) had issues with `xargs`, so its introduction was temporarily reverted until the problem has been dealt with through [pull-request #16](https://github.com/dreamyguy/gitlogg/pull/16). [v0.1.9](https://github.com/dreamyguy/gitlogg/tree/v0.1.9) was released to revert those changes.
 
-This makes [v0.1.9](https://github.com/dreamyguy/gitlogg/tree/v0.1.9) the most stable release yet.
+The [javascript](https://github.com/dreamyguy/gitlogg/tree/javascript) branch is a very fine piece of programming; you should definitely check it out. I haven't tested it extensively, but found a few issues, which are reported in the [issue tracker](https://github.com/dreamyguy/gitlogg/issues).
+
+The current version [v0.2.0](https://github.com/dreamyguy/gitlogg/tree/v0.2.0) is still quite stable after all these years, with no known issues. Try it! :sparkles:
 
 #### Release History
 
+* 2018-07-11   [v0.2.0](https://github.com/dreamyguy/gitlogg/tree/v0.2.0) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.9...v0.2.0)
+  * Improve console output readability
+  * Simplify `JSON` format.
+    * Reduce filesize of output `JSON`, in some scenarios quite dramatically
+    * Make it importable into `MongoDB`, which is what is being used on **gitlogg-api**
+  * Use `\0` instead of `ò` when replacing `\n` during the extraction of `git log`.
+    * The main idea here is to use a character that occurs as seldom as possible - preferably never in `git` context.
 * 2016-12-15   [v0.1.9](https://github.com/dreamyguy/gitlogg/tree/v0.1.9) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.8...v0.1.9)
   * Remove parallelization of processes until the problem with `xargs` has been dealt with.
 * 2016-12-14   [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.7...v0.1.8)
