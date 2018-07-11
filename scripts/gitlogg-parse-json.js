@@ -7,25 +7,25 @@ var fs = require('fs'),
     output_file_temp = '_tmp/gitlogg.tmp',
     output_file = '_output/gitlogg.json';
 
-console.log(chalk.yellow('Parsing JSON output...'));
+console.log(chalk.yellow('\n Parsing JSON output...\n'));
 
 // initialise timer
-console.time(chalk.green('JSON output parsed in'));
+console.time(chalk.green(' JSON output parsed in'));
 
 // create the streams
 var stream = fs.createReadStream(output_file_temp, 'utf8');
 var output = fs.createWriteStream(output_file, 'utf8');
 // handle errors
 stream.on('error', function() {
-  console.log(chalk.red('Could not read from ' + output_file_temp));
+  console.log(chalk.red(' Could not read from ' + output_file_temp));
 });
 output.on('error', function() {
-  console.log(chalk.red('Something went wrong, ' + output_file + ' could not be written / saved'));
+  console.log(chalk.red(' Something went wrong, ' + output_file + ' could not be written / saved'));
 });
 // handle completion callback
 output.on('finish', function() {
-  console.timeEnd(chalk.green('JSON output parsed in'));
-  console.log(chalk.green('The file ' + chalk.blue(output_file) + ' was saved! '));
+  console.timeEnd(chalk.green(' JSON output parsed in'));
+  console.log(chalk.green(' The file ' + chalk.blue(output_file) + ' was saved. ' + chalk.yellow('Done! ✨\n')));
 });
 
 // stream the stream line by line
