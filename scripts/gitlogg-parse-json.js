@@ -33,7 +33,7 @@ stream = byline.createStream(stream);
 // create a transform stream
 var parser = new Transform({ objectMode: true });
 // use a JSONStream: JSONStream.stringify(open, sep, close)
-var jsonToStrings = JSONStream.stringify('{\n  "commits" : [\n    ', ',\n    ', '\n  ]\n}\n');
+var jsonToStrings = JSONStream.stringify('[\n  ', ',\n  ','\n]\n');
 
 // massage the stats
 var changes = function(data, index) {
