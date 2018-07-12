@@ -253,10 +253,14 @@ There are _no known issues_ at this point. The parallelization that was introduc
 
 The [javascript](https://github.com/dreamyguy/gitlogg/tree/javascript) branch is a very fine piece of programming; you should definitely check it out. I haven't tested it extensively, but found a few issues, which are reported in the [issue tracker](https://github.com/dreamyguy/gitlogg/issues).
 
-The current version [v0.2.0](https://github.com/dreamyguy/gitlogg/tree/v0.2.0) is still quite stable after all these years, with no known issues. Try it! :sparkles:
+The current version [v0.2.1](https://github.com/dreamyguy/gitlogg/tree/v0.2.1) is still quite stable after all these years, with no known issues. Try it! :sparkles:
 
 #### Release History
 
+* 2018-07-12   [v0.2.1](https://github.com/dreamyguy/gitlogg/tree/v0.2.1) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.2.0...v0.2.1)
+  * Use `ȝ` instead of `\0` when replacing `\n` during the extraction of `git log`. `\0` is not as reliable as it seemed.
+    * The main idea here is to use a character that occurs as seldom as possible - preferably never in `git` context.
+    * `ȝ` (Yogh) is an old English character. If that gives problems, I'll try `ƿ` (Wynn), another abandoned English char.
 * 2018-07-11   [v0.2.0](https://github.com/dreamyguy/gitlogg/tree/v0.2.0) - [View Changes](https://github.com/dreamyguy/gitlogg/compare/v0.1.9...v0.2.0)
   * Improve console output readability
   * Simplify `JSON` format.
