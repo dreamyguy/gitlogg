@@ -37,7 +37,22 @@ var jsonToStrings = JSONStream.stringify('[\n  ', ',\n  ','\n]\n');
 
 // massage the stats
 var changes = function(data, index) {
-  var v = data.split(',')[index] || 0;
+  var v = 0;
+  if(index == 0){
+      // "files"
+      var m = data.match(/ [0-9]+ files/);
+      if(m != null) v = m[0];
+  }
+  if(index == 1){
+      // "insertions"
+      var m = data.match(/ [0-9]+ insertions/);
+      if(m != null) v = m[0];
+  }
+  if(index == 2){
+      // "deletions"
+      var m = data.match(/ [0-9]+ deletions/);
+      if(m != null) v = m[0];
+  }
   var w = 0;
   if (v !== 0) {
     var w = v.split(' ')[1]; // the number of changes is second on the array
