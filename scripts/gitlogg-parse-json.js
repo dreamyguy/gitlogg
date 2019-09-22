@@ -38,26 +38,23 @@ var jsonToStrings = JSONStream.stringify('[\n  ', ',\n  ','\n]\n');
 // massage the stats
 var changes = function(data, index) {
   var v = 0;
-  if(index == 0){
+  var m = null;
+  if (index === 0) {
       // "files"
-      var m = data.match(/ [0-9]+ files/);
-      if(m != null) v = m[0];
+      m = data.match(/[0-9]+ (files changed|file changed)/);
+      if (m !== null) v = m[0].match(/[0-9]+/);
   }
-  if(index == 1){
+  if (index === 1) {
       // "insertions"
-      var m = data.match(/ [0-9]+ insertions/);
-      if(m != null) v = m[0];
+      m = data.match(/[0-9]+ (insertions|insertion)/);
+      if (m !== null) v = m[0].match(/[0-9]+/);
   }
-  if(index == 2){
+  if (index === 2) {
       // "deletions"
-      var m = data.match(/ [0-9]+ deletions/);
-      if(m != null) v = m[0];
+      m = data.match(/[0-9]+ (deletions|deletion)/);
+      if (m !== null) v = m[0].match(/[0-9]+/);
   }
-  var w = 0;
-  if (v !== 0) {
-    var w = v.split(' ')[1]; // the number of changes is second on the array
-  }
-  return parseInt(w);
+  return parseInt(v, 10);
 };
 
 // decode UTF-8-ized Latin-1/ISO-8859-1 to UTF-8
