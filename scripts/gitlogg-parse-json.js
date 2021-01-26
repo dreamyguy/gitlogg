@@ -35,26 +35,32 @@ var parser = new Transform({ objectMode: true });
 // use a JSONStream: JSONStream.stringify(open, sep, close)
 var jsonToStrings = JSONStream.stringify('[\n  ', ',\n  ','\n]\n');
 
-// massage the stats
-var changes = function(data, index) {
-  var v = 0;
-  var m = null;
-  if (index === 0) {
-      // "files"
-      m = data.match(/[0-9]+ (files changed|file changed)/);
-      if (m !== null) v = m[0].match(/[0-9]+/);
+// output stats according to mode
+const getStats = ({
+  stats,
+  mode, // 'files' | 'insertions' | 'deletions'
+}) => {
+  let output = 0;
+  let rgx = /(.*)/gi;
+  let match = '';
+  if (stats) {
+    if (mode === 'files') {
+      rgx = /(?<filesChanged>[0-9]*)(\s)(files?\schanged)/gi;
+      match = stats.match(rgx);
+      output = match && match[0] ? match[0].replace(rgx, '$<filesChanged>') : 0;
+    }
+    if (mode === 'insertions') {
+      rgx = /(?<insertions>[0-9]*)(\s)(insertions?\(\+\))/gi;
+      match = stats.match(rgx);
+      output = match && match[0] ? match[0].replace(rgx, '$<insertions>') : 0;
+    }
+    if (mode === 'deletions') {
+      rgx = /(?<deletions>[0-9]*)(\s)(deletions?\(\-\))/gi;
+      match = stats.match(rgx);
+      output = match && match[0] ? match[0].replace(rgx, '$<deletions>') : 0;
+    }
   }
-  if (index === 1) {
-      // "insertions"
-      m = data.match(/[0-9]+ (insertions|insertion)/);
-      if (m !== null) v = m[0].match(/[0-9]+/);
-  }
-  if (index === 2) {
-      // "deletions"
-      m = data.match(/[0-9]+ (deletions|deletion)/);
-      if (m !== null) v = m[0].match(/[0-9]+/);
-  }
-  return parseInt(v, 10);
+  return output ? parseInt(output, 10) : 0;
 };
 
 // decode UTF-8-ized Latin-1/ISO-8859-1 to UTF-8
@@ -148,9 +154,9 @@ parser._transform = function(data, encoding, done) {
       date_month_name =                time_array[1],                           // [Fri, Jan, 3, 14:16:56, 2014, +0100] => Jan
       date_month_number =              parseInt(date_array.split('-')[1], 10),  // 2014-01-03 => [2014, 01, 03] => 01
       date_year =                      time_array[4],                           // [Fri, Jan, 3, 14:16:56, 2014, +0100] => 2014
-      files_changed =                  changes(stats, 0),                       // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 9
-      insertions =                     changes(stats, 1),                       // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 507
-      deletions =                      changes(stats, 2),                       // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 2102
+      files_changed =                  getStats({ stats, mode: 'files' }),      // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 9
+      insertions =                     getStats({ stats, mode: 'insertions' }), // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 507
+      deletions =                      getStats({ stats, mode: 'deletions' }),  // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 2102
       impact =                         (insertions - deletions);                // 507 - 2102 => -1595
   // create the object
   var obj = {
