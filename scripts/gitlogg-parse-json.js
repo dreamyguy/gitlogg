@@ -98,11 +98,45 @@ var sliceit = function(str) {
   }
 }
 
+// Util to extract content within a 'start' and an 'end' string
+var extractContent = ({ content, start = '', end = '', sanitized }) => {
+  var regex = new RegExp(`(${start})([\\s\\S]*?)(${end})`, "gim");
+  var extractedFullString = content.match(regex)[0];
+  var extractedMidContent = extractedFullString.replace(regex, '$2');
+  var extractedMidContentSanitized = extractedMidContent.replace('\\t', '-t');
+  var extractedFullStringSanitized = `${extractedFullString.replace(regex, '$1')}${extractedMidContentSanitized}${extractedFullString.replace(regex, '$3')}`;
+  return sanitized ? extractedFullStringSanitized : extractedFullString;
+};
+
+// Sometimes the separator can appear within these definitions, which are the ones that allow for 'free text' strings
+var cleanupSeparators = function(content) {
+  var match1 = extractContent({ content, start: "author_name\\\\t", end: "\\\\tauthor_name_mailmap" });
+  var match2 = extractContent({ content, start: "author_name_mailmap\\\\t", end: "\\\\tauthor_email" });
+  var match3 = extractContent({ content, start: "committer_name\\\\t", end: "\\\\tcommitter_name_mailmap" });
+  var match4 = extractContent({ content, start: "committer_name_mailmap\\\\t", end: "\\\\tcommitter_email" });
+  var match5 = extractContent({ content, start: "subject\\\\t", end: "\\\\tsubject_sanitized" });
+  var match1Sanitized = extractContent({ content, start: "author_name\\\\t", end: "\\\\tauthor_name_mailmap", sanitized: true });
+  var match2Sanitized = extractContent({ content, start: "author_name_mailmap\\\\t", end: "\\\\tauthor_email", sanitized: true });
+  var match3Sanitized = extractContent({ content, start: "committer_name\\\\t", end: "\\\\tcommitter_name_mailmap", sanitized: true });
+  var match4Sanitized = extractContent({ content, start: "committer_name_mailmap\\\\t", end: "\\\\tcommitter_email", sanitized: true });
+  var match5Sanitized = extractContent({ content, start: "subject\\\\t", end: "\\\\tsubject_sanitized", sanitized: true });
+  // console.log('match1', match1);
+  // console.log('match1Sanitized', match1Sanitized);
+  var contentSanitized = content.replace(match1, match1Sanitized)
+  .replace(match2, match2Sanitized)
+  .replace(match3, match3Sanitized)
+  .replace(match4, match4Sanitized)
+  .replace(match5, match5Sanitized);
+  // console.log('content', contentSanitized);
+  return contentSanitized;
+};
+
 // do the transformations, through the transform stream
 parser._transform = function(data, encoding, done) {
   var separator = /\\t/;
   var dataDecoded = decode(data);
-  var c = dataDecoded.trim().split(separator);
+  var dataDecodedClean = cleanupSeparators(dataDecoded);
+  var c = dataDecodedClean.trim().split(separator);
   // console.log(c);
   // vars based on sequential values ( sanitise " to ' on fields that accept user input )
   var repository =                     c[3],                    // color-consolidator
