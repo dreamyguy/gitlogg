@@ -6,3 +6,4 @@ assets/
 _repos/
 _output/
 _tmp/
+.vscode/

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-bash ./scripts/gitlogg-generate-log.sh
+bash ./scripts/gitlogg-generate-log.sh $1

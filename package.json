@@ -2,6 +2,7 @@
   "name": "gitlogg",
   "version": "0.2.1",
   "description": "Parse the 'git log' of one or several 'git' repositories into a sanitised and distributable 'JSON' file",
+  "type": "module",
   "keywords": [
     "gitlog",
     "gitlogg",
@@ -23,18 +24,20 @@
   "copyright": "Copyright (c) Wallace Sidhrée - All rights reserved.",
   "license": "MIT",
   "devDependencies": {
-    "babel-preset-es2015": "^6.9.0",
-    "chalk": "^1.1.3"
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "chalk": "^5.0.1"
   },
   "scripts": {
-    "setup": "npm install babel-cli -g && npm install && mkdir -p _output && mkdir -p _repos && mkdir -p _tmp",
-    "gitlogg": "./scripts/gitlogg.sh"
+    "start": "bash ./scripts/gitlogg.sh",
+    "setup": "npm install @babel/cli -g && npm install && mkdir _output && mkdir _repos && mkdir _tmp",
+    "gitlogg": "bash ./scripts/gitlogg.sh"
   },
   "engines": {
-    "node": ">=4.3.0"
+    "node": ">=16.0.0"
   },
   "dependencies": {
-    "JSONStream": "^1.2.1",
-    "byline": "4.2.2"
+    "byline": "^5.0.0",
+    "JSONStream": "^1.2.1"
   }
 }
