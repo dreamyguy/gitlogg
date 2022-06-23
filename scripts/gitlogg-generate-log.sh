@@ -7,8 +7,18 @@ source "colors.sh"
 
 cd ..
 
+# show how to use this script
+show_help() {
+  echo "${initialMessage} Usage: npm run gitlogg <path to your repositories>"
+  echo " Example: npm run gitlogg ~/repositories"
+  exit 1
+}
+
 # define the absolute path to the directory that contains all your repositories.
-yourpath='./_repos/'
+yourpath=$1
+if [ -z "$1" ]; then
+  show_help
+fi
 
 # define temporary 'git log' output file that will be parsed to 'json'
 tempOutputFile='_tmp/gitlogg.tmp'
@@ -38,7 +48,6 @@ esac
 
 # 'thepath' sets the path to each repository under 'yourpath' (the trailing asterix [*/] represents all the repository folders).
 thepath="${yourpathSanitized}*/"
-
 
 # function to trim whitespace
 trim() {
@@ -89,7 +98,7 @@ if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then
       )
   done > "${tempOutputFile}"
   echo -e "\n ${Gre}The file ${Blu}${tempOutputFile} ${Gre}generated in${RCol}: ${SECONDS}s" &&
-  babel "${jsonParser}" | node                 # only parse JSON if we have a source to parse it from
+  node ${jsonParser}                           # only parse JSON if we have a source to parse it from
 # if the path exists but is empty
 elif [ -d "${yourpathSanitized}" ] && [ ! "$(ls $yourpathSanitized)" ]; then
   echo -e "\n ${Whi}[ERROR 002]: ${Yel}The path to the local repositories ${Red}'${yourpath}'${Yel}, which is set on the file ${Blu}'${thisFile}' ${UYel}exists, but is empty!${RCol}"

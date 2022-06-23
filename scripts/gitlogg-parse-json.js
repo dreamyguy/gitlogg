@@ -1,11 +1,12 @@
-var fs = require('fs'),
-    path = require('path'),
-    chalk = require('chalk'),
-    byline = require('byline'),
-    Transform = require('stream').Transform,
-    JSONStream = require('JSONStream'),
-    output_file_temp = '_tmp/gitlogg.tmp',
-    output_file = '_output/gitlogg.json';
+//@ts-check
+import { createReadStream, createWriteStream } from 'fs';
+import path from 'path';
+import chalk from 'chalk';
+import { createStream } from 'byline';
+import { Transform } from 'stream';
+import { stringify } from 'JSONStream';
+var output_file_temp = '_tmp/gitlogg.tmp';
+var output_file = '_output/gitlogg.json';
 
 console.log(chalk.yellow('\n Parsing JSON output...\n'));
 
@@ -13,8 +14,8 @@ console.log(chalk.yellow('\n Parsing JSON output...\n'));
 console.time(chalk.green(' JSON output parsed in'));
 
 // create the streams
-var stream = fs.createReadStream(output_file_temp, 'utf8');
-var output = fs.createWriteStream(output_file, 'utf8');
+var stream = createReadStream(output_file_temp, 'utf8');
+var output = createWriteStream(output_file, 'utf8');
 // handle errors
 stream.on('error', function() {
   console.log(chalk.red(' Could not read from ' + output_file_temp));
@@ -29,35 +30,38 @@ output.on('finish', function() {
 });
 
 // stream the stream line by line
-stream = byline.createStream(stream);
+// Note: Type 'Transform' is missing the following properties from type 'ReadStream': close, bytesRead, path, pending [Typescript Error Code #2739])
+// Note: I'm not sure why this error is happening, but it doesn't seem to break anything
+// @ts-ignore
+stream = createStream(stream);
 // create a transform stream
 var parser = new Transform({ objectMode: true });
 // use a JSONStream: JSONStream.stringify(open, sep, close)
-var jsonToStrings = JSONStream.stringify('[\n  ', ',\n  ','\n]\n');
+var jsonToStrings = stringify('[\n  ', ',\n  ','\n]\n');
 
 // output stats according to mode
 const getStats = ({
   stats,
   mode, // 'files' | 'insertions' | 'deletions'
 }) => {
-  let output = 0;
+  let output = "0";
   let rgx = /(.*)/gi;
   let match = '';
   if (stats) {
     if (mode === 'files') {
       rgx = /(?<filesChanged>[0-9]*)(\s)(files?\schanged)/gi;
       match = stats.match(rgx);
-      output = match && match[0] ? match[0].replace(rgx, '$<filesChanged>') : 0;
+      output = match && match[0] ? match[0].replace(rgx, '$<filesChanged>') : "0";
     }
     if (mode === 'insertions') {
       rgx = /(?<insertions>[0-9]*)(\s)(insertions?\(\+\))/gi;
       match = stats.match(rgx);
-      output = match && match[0] ? match[0].replace(rgx, '$<insertions>') : 0;
+      output = match && match[0] ? match[0].replace(rgx, '$<insertions>') : "0";
     }
     if (mode === 'deletions') {
       rgx = /(?<deletions>[0-9]*)(\s)(deletions?\(\-\))/gi;
       match = stats.match(rgx);
-      output = match && match[0] ? match[0].replace(rgx, '$<deletions>') : 0;
+      output = match && match[0] ? match[0].replace(rgx, '$<deletions>') : "0";
     }
   }
   return output ? parseInt(output, 10) : 0;
@@ -99,9 +103,12 @@ var sliceit = function(str) {
 }
 
 // Util to extract content within a 'start' and an 'end' string
-var extractContent = ({ content, start = '', end = '', sanitized }) => {
+var extractContent = ({ content, start = '', end = '', sanitized = false }) => {
+  if (!content) return null;
   var regex = new RegExp(`(${start})([\\s\\S]*?)(${end})`, "gim");
-  var extractedFullString = content.match(regex)[0];
+  var extractedFullStringArray = content.match(regex);
+  if(!extractedFullStringArray) return null;
+  var extractedFullString = extractedFullStringArray[0]
   var extractedMidContent = extractedFullString.replace(regex, '$2');
   var extractedMidContentSanitized = extractedMidContent.replace('\\t', '-t');
   var extractedFullStringSanitized = `${extractedFullString.replace(regex, '$1')}${extractedMidContentSanitized}${extractedFullString.replace(regex, '$3')}`;
@@ -175,23 +182,23 @@ parser._transform = function(data, encoding, done) {
       commit_notes =                   unquote(c[67]),          // ""
       stats =                          sliceit(c[69]);          // ` 9 files changed, 507 insertions(+), 2102 deletions(-)`
   // vars that require manipulation
-  var time_array =                     author_date.split(' '),                  // Fri Jan 3 14:16:56 2014 +0100 => [Fri, Jan, 3, 14:16:56, 2014, +0100]
-      time_array_clock =               time_array[3].split(':'),                // 14:16:56 => [14, 16, 56]
-      time_hour =                      parseInt(time_array_clock[0], 10),       // [14, 16, 56] => 14
-      time_minutes =                   parseInt(time_array_clock[1], 10),       // [14, 16, 56] => 16
-      time_seconds =                   parseInt(time_array_clock[2], 10),       // [14, 16, 56] => 56
-      time_gmt =                       time_array[5],                           // [Fri, Jan, 3, 14:16:56, 2014, +0100] => +0100
-      date_array =                     author_date_iso_8601.split(' ')[0],      // 2014-01-03 14:16:56 +0100 => 2014-01-03
-      date_day_week =                  time_array[0],                           // [Fri, Jan, 3, 14:16:56, 2014, +0100] => Fri
-      date_iso_8601 =                  date_array,                              // 2014-01-03
-      date_month_day =                 parseInt(date_array.split('-')[2], 10),  // 2014-01-03 => [2014, 01, 03] => 03
-      date_month_name =                time_array[1],                           // [Fri, Jan, 3, 14:16:56, 2014, +0100] => Jan
-      date_month_number =              parseInt(date_array.split('-')[1], 10),  // 2014-01-03 => [2014, 01, 03] => 01
-      date_year =                      time_array[4],                           // [Fri, Jan, 3, 14:16:56, 2014, +0100] => 2014
-      files_changed =                  getStats({ stats, mode: 'files' }),      // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 9
-      insertions =                     getStats({ stats, mode: 'insertions' }), // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 507
-      deletions =                      getStats({ stats, mode: 'deletions' }),  // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 2102
-      impact =                         (insertions - deletions);                // 507 - 2102 => -1595
+  var time_array =                     author_date ? author_date.split(' ') : ["Thu","Jan","1","00:00:00", "1970", "+0000"], // Fri Jan 3 14:16:56 2014 +0100 => [Fri, Jan, 3, 14:16:56, 2014, +0100]
+      time_array_clock =               time_array[3].split(':'),                                                             // 14:16:56 => [14, 16, 56]
+      time_hour =                      parseInt(time_array_clock[0], 10),                                                    // [14, 16, 56] => 14
+      time_minutes =                   parseInt(time_array_clock[1], 10),                                                    // [14, 16, 56] => 16
+      time_seconds =                   parseInt(time_array_clock[2], 10),                                                    // [14, 16, 56] => 56
+      time_gmt =                       time_array[5],                                                                        // [Fri, Jan, 3, 14:16:56, 2014, +0100] => +0100
+      date_array =                     author_date_iso_8601.split(' ')[0],                                                   // 2014-01-03 14:16:56 +0100 => 2014-01-03
+      date_day_week =                  time_array[0],                                                                        // [Fri, Jan, 3, 14:16:56, 2014, +0100] => Fri
+      date_iso_8601 =                  date_array,                                                                           // 2014-01-03
+      date_month_day =                 parseInt(date_array.split('-')[2], 10),                                               // 2014-01-03 => [2014, 01, 03] => 03
+      date_month_name =                time_array[1],                                                                        // [Fri, Jan, 3, 14:16:56, 2014, +0100] => Jan
+      date_month_number =              parseInt(date_array.split('-')[1], 10),                                               // 2014-01-03 => [2014, 01, 03] => 01
+      date_year =                      time_array[4],                                                                        // [Fri, Jan, 3, 14:16:56, 2014, +0100] => 2014
+      files_changed =                  getStats({ stats, mode: 'files' }),                                                   // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 9
+      insertions =                     getStats({ stats, mode: 'insertions' }),                                              // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 507
+      deletions =                      getStats({ stats, mode: 'deletions' }),                                               // ` 9 files changed, 507 insertions(+), 2102 deletions(-)` => 2102
+      impact =                         (insertions - deletions);                                                             // 507 - 2102 => -1595
   // create the object
   var obj = {
       repository: repository,
@@ -253,3 +260,5 @@ stream
 .pipe(parser)
 .pipe(jsonToStrings)
 .pipe(output);
+
+export default {};
