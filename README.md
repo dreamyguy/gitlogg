@@ -190,9 +190,18 @@ _**Tip:** drag the folder that contain your repositories to a terminal window, a
         $ npm run gitlogg
 
 ### Other Advanced Mode
-
 1. Install dependencies
 2. run `yarn gitloggs --  -[s|u|q|y] <path/of/the/repo>`
+#### Args to `gitloggs`:
+- s (for since date): is the since date to git log
+- u (for until date): is the until date to git log
+- q (for quarter): is the quarter of year
+- y (for year): is the year to use, default id current year
+#### Examples:
+```yarn gitloggs -- -q 3 <path/of/the/repo>```
+```yarn gitloggs -- -y 2022 -q 2 <path/of/the/repo>```
+```yarn gitloggs -- -s 'Jan 1 2023' -u 'Mar 30 2023' <path/of/the/repo>```
+
 
 #### Parallel Processing
 
