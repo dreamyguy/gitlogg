@@ -1,7 +1,6 @@
 #!/bin/bash
 
-# https://github.com/dreamyguy/gitinsight/blob/master/backend/server/graphql/resolvers.js
-
+# https://github.com/dreamyguy/gitinsight
 # https://stackoverflow.com/questions/7069682/how-to-get-arguments-with-flags-in-bash
 while getopts d:q:s:u:y: flag; do
   case "${flag}" in
@@ -102,7 +101,6 @@ if [ -z "${year}" ]; then
   year=`date +%Y`
 fi
 
-echo "year: ${year}"
 if [[ $quarter == 1 ]]; then
   since="Jan 1 ${year}"
   until="Mar 31 ${year}"
@@ -116,9 +114,6 @@ elif [[ $quarter == 4 ]]; then
   since="Oct 1 ${year}"
   until="Dec 31 ${year}"
 fi
-
-
-echo "since: ${since} --- until: ${until}"
 
 # if the path exists and is not empty
 if [ -d "${yourpathSanitized}" ] && [ "$(ls $yourpathSanitized)" ]; then

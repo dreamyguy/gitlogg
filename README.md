@@ -189,6 +189,11 @@ _**Tip:** drag the folder that contain your repositories to a terminal window, a
 
         $ npm run gitlogg
 
+### Other Advanced Mode
+
+1. Install dependencies
+2. run `yarn gitloggs --  -[s|u|q|y] <path/of/the/repo>`
+
 #### Parallel Processing
 
 The parallel processing that was released on [v0.1.8](https://github.com/dreamyguy/gitlogg/tree/v0.1.8) had problems with `xargs` and was temporarily removed. The issue is being dealt with through [pull-request #16](https://github.com/dreamyguy/gitlogg/pull/16).
