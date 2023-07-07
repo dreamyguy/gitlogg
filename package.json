@@ -28,7 +28,8 @@
   },
   "scripts": {
     "setup": "npm install babel-cli -g && npm install && mkdir -p _output && mkdir -p _repos && mkdir -p _tmp",
-    "gitlogg": "./scripts/gitlogg.sh"
+    "gitlogg": "./scripts/gitlogg.sh",
+    "gitloggs": "./scripts/gitlogg-single-log.sh"
   },
   "engines": {
     "node": ">=4.3.0"
